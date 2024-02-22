@@ -18,5 +18,36 @@ a {
 }
 
 body {
-  background-color: #88effd;
+  background-color: #ecb5f7;
+}
+
+#home-container {
+  display: flex;
+  flex-direction: column;
+}
+#greeting {
+  margin: 0 auto;
+}
+
+#artist-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#artist-card {
+  margin: 10px;
+  width: 15vw;
+  height: auto;
+  min-height: 329px;
+  display: flex;
+  /* border-radius: 50%; */
+}
+#artist-card-body {
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#btn-view-artist {
+  align-self: center;
 }

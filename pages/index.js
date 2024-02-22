@@ -7,11 +7,13 @@ function Home() {
   const { user } = useAuth();
   return (
     <>
-      <div id="greeting">
-        <h1>Hello {user.fbUser.displayName}!</h1>
-      </div>
       <div id="home-container">
-        <ArtistHome />
+        <div id="greeting">
+          <h3>Hello {user.fbUser.displayName}!</h3>
+        </div>
+        <div id="home-components">
+          <ArtistHome />
+        </div>
       </div>
     </>
   );

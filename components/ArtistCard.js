@@ -8,7 +8,7 @@ const ArtistCard = ({ artistObj }) => (
     <Card.Header>Artist: {artistObj.name}</Card.Header>
     <Card.Body id="artist-card-body">
       <Card.Title>{artistObj.name}</Card.Title>
-      <Card.Img src={artistObj.img} id="artist-img"/>
+      <Card.Img src={artistObj.img} id="artist-img" />
       <Button
         id="btn-view-artist"
         onClick={() => {

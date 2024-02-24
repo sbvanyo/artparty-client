@@ -7,6 +7,13 @@ const getArtworks = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getArtworksByArtist = (artistId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/artworks?artist=${artistId}`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
 const getSingleArtwork = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/artworks/${id}`)
     .then((response) => response.json())
@@ -72,6 +79,7 @@ const deleteArtwork = (id) => new Promise((resolve, reject) => {
 // eslint-disable-next-line import/prefer-default-export
 export {
   getArtworks,
+  getArtworksByArtist,
   getSingleArtwork,
   createArtwork,
   updateArtwork,

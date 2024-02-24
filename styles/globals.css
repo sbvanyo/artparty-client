@@ -21,12 +21,21 @@ body {
   background-color: #ecb5f7;
 }
 
+.page-title {
+  margin: 20px auto;
+  text-align: center;
+}
+
 #home-container {
   display: flex;
   flex-direction: column;
 }
 #greeting {
   margin: 0 auto;
+}
+#home-components {
+  display: flex;
+  flex-direction: column;
 }
 
 #artist-container {
@@ -50,4 +59,26 @@ body {
 }
 #btn-view-artist {
   align-self: center;
+}
+
+
+
+
+#artwork-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+#artwork-card {
+  margin: 10px;
+  height: auto;
+  width: fit-content;
+  max-width: 330px;
+  display: flex;
+}
+.card-img {
+  width: 100%;
+  height: auto;
 }

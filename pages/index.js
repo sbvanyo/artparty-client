@@ -2,16 +2,20 @@
 // import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 import ArtistHome from './artists/artists';
+import ArtworkHome from './artworks/artworks';
 
 function Home() {
   const { user } = useAuth();
   return (
     <>
-      <div id="greeting">
-        <h1>Hello {user.fbUser.displayName}!</h1>
-      </div>
       <div id="home-container">
-        <ArtistHome />
+        <div id="greeting">
+          <h3>Hello {user.fbUser.displayName}!</h3>
+        </div>
+        <div id="home-components">
+          <ArtistHome />
+          <ArtworkHome />
+        </div>
       </div>
     </>
   );

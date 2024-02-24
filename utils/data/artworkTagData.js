@@ -1,7 +1,7 @@
 import { clientCredentials } from '../client';
 
-const getArtworkTags = () => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/artworktags`, {
+const getArtworkTags = (artworkId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/artworktags?artwork=${artworkId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

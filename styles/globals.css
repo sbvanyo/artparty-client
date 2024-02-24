@@ -21,6 +21,11 @@ body {
   background-color: #ecb5f7;
 }
 
+img {
+  max-width: 100%;
+  border: white 5px solid;
+}
+
 .page-title {
   margin: 20px auto;
   text-align: center;
@@ -81,4 +86,16 @@ body {
 .card-img {
   width: 100%;
   height: auto;
+}
+
+#single-artwork-details {
+  background-color: whitesmoke;
+  margin: 5% 0 1% 0;
+  padding: 2%;
+  border-radius: 25px;
+}
+#artwork-tags-container {
+  background-color: whitesmoke;
+  padding: 2%;
+  border-radius: 25px;
 }

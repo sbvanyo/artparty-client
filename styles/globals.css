@@ -60,3 +60,25 @@ body {
 #btn-view-artist {
   align-self: center;
 }
+
+
+
+
+#artwork-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+#artwork-card {
+  margin: 10px;
+  height: auto;
+  width: fit-content;
+  max-width: 330px;
+  display: flex;
+}
+.card-img {
+  width: 100%;
+  height: auto;
+}

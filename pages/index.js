@@ -2,6 +2,7 @@
 // import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 import ArtistHome from './artists/artists';
+import ArtworkHome from './artworks/artworks';
 
 function Home() {
   const { user } = useAuth();
@@ -13,6 +14,7 @@ function Home() {
         </div>
         <div id="home-components">
           <ArtistHome />
+          <ArtworkHome />
         </div>
       </div>
     </>

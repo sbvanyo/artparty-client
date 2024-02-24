@@ -32,10 +32,7 @@ ArtworkCard.propTypes = {
     date: PropTypes.string.isRequired,
     age: PropTypes.number.isRequired,
     featured: PropTypes.bool.isRequired,
-    artist: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      img: PropTypes.string.isRequired,
-    }).isRequired,
+    artist: PropTypes.number.isRequired,
   }).isRequired,
 };
 

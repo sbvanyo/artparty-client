@@ -71,7 +71,6 @@ const ArtworkDetails = () => {
 
         <div id="artwork-tags-container">
           {artworkTags.map((artworkTag) => (
-            // console.warn(artworkTags)
             <section key={artworkTag.id} className="artwork-tags">
               <div>TAGS: {artworkTag.tag.label}</div>
             </section>

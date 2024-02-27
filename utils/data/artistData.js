@@ -23,7 +23,7 @@ const createArtist = (artist) => new Promise((resolve, reject) => {
     body: JSON.stringify(artist),
   })
     .then((response) => response.json())
-    .then(resolve)
+    .then((data) => resolve(data))
     .catch(reject);
 });
 

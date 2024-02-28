@@ -70,11 +70,13 @@ img {
 
 
 #artwork-container {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  column-count: 4;
+  column-gap: 0;
 }
 #artwork-card {
   margin: 10px;

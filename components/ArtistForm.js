@@ -12,7 +12,7 @@ const initialState = {
   id: null,
 };
 
-// initialGame is a prop passed in from games/[id].js
+// initialArtist is a prop passed in from artists/edit/[id].js, used for updating
 const ArtistForm = ({ initialArtist }) => {
   const router = useRouter();
   const { user } = useAuth();
@@ -69,7 +69,6 @@ const ArtistForm = ({ initialArtist }) => {
     } else {
       createArtist(artist).then((data) => {
         if (data && data.id) {
-          console.warn(data);
           router.push(`/artists/${data.id}`);
         } else {
           console.error('Artist creation failed');
@@ -115,7 +114,7 @@ ArtistForm.propTypes = {
     name: PropTypes.string,
     img: PropTypes.string,
     user: PropTypes.shape({
-      uid: PropTypes.string,
+      id: PropTypes.number,
     }),
   }),
 };
@@ -123,24 +122,5 @@ ArtistForm.propTypes = {
 ArtistForm.defaultProps = {
   initialArtist: initialState,
 };
-
-// ArtistForm.propTypes = {
-// user: PropTypes.shape({
-//   uid: PropTypes.string.isRequired,
-// }).isRequired,
-//   initialGame: PropTypes.shape({
-//     title: PropTypes.string.isRequired,
-//     maker: PropTypes.string.isRequired,
-//     numberOfPlayers: PropTypes.number.isRequired,
-//     skillLevel: PropTypes.number.isRequired,
-//     id: PropTypes.number.isRequired,
-//     gameType: PropTypes.number.isRequired,
-//   }).isRequired,
-//   // onUpdate: PropTypes.func.isRequired,
-// };
-
-// GameForm.defaultProps = {
-//   initialGame: initialState,
-// };
 
 export default ArtistForm;

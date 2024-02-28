@@ -20,7 +20,6 @@ const initialState = {
 };
 
 // initialArtwork is a prop passed in from artworks/edit/[id].js, used for updating
-// eslint-disable-next-line react/prop-types
 const ArtworkForm = ({ initialArtwork, user }) => {
   const router = useRouter();
   // const user = useAuth();
@@ -249,12 +248,14 @@ ArtworkForm.propTypes = {
     date: PropTypes.string,
     age: PropTypes.number,
     featured: PropTypes.bool,
-    tags: PropTypes.shape({
-      label: PropTypes.string,
-    }),
+    tags: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+      }),
+    ),
     user: PropTypes.shape({
-      id: PropTypes.number,
-    }),
+      id: PropTypes.number.isRequired, // Assuming id is required; adjust as necessary
+    }).isRequired,
     artist: PropTypes.shape({
       id: PropTypes.number,
     }),

@@ -59,7 +59,7 @@ const ArtistDetails = () => {
       <div id="single-artist-details">
         <ArtistCard artistObj={artistDetails} />
         <div className="btn-holder">
-          {/* <Button onClick={() => router.push(`/orders/edit/${orderDetails.id}`)}>Edit Artist</Button> */}
+          <Button onClick={() => router.push(`/artists/edit/${artistDetails.id}`)}>Edit Artist</Button>
           <Button onClick={deleteThisArtist}>Delete Artist</Button>
         </div>
       </div>

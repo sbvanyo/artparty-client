@@ -100,4 +100,12 @@ img {
   background-color: whitesmoke;
   padding: 2%;
   border-radius: 25px;
+  display: flex;
+  align-items: center;
+}
+.artwork-tags {
+  margin: 0 5px;
+}
+#tags-header {
+  margin: 0;
 }

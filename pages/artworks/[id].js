@@ -70,11 +70,14 @@ const ArtworkDetails = () => {
         </div>
 
         <div id="artwork-tags-container">
-          {artworkTags.map((artworkTag) => (
-            <section key={artworkTag.id} className="artwork-tags">
-              <div>TAGS: {artworkTag.tag.label}</div>
-            </section>
-          ))}
+          <>
+            <h6 id="tags-header">TAGS:</h6>
+            {artworkTags.map((artworkTag) => (
+              <section key={artworkTag.id} className="artwork-tags">
+                <div>#{artworkTag.tag.label}</div>
+              </section>
+            ))}
+          </>
         </div>
 
         <div className="btn-holder">

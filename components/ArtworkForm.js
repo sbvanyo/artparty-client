@@ -6,6 +6,7 @@ import { Button, Form, FloatingLabel } from 'react-bootstrap';
 // import { createGame, getGameTypes, updateGame } from '../../utils/data/gameData';
 import { getArtists } from '../utils/data/artistData';
 import { createArtwork, updateArtwork } from '../utils/data/artworkData';
+import { getTags } from '../utils/data/tagData';
 
 const initialState = {
   id: null,
@@ -25,17 +26,27 @@ const ArtworkForm = ({ initialArtwork, user }) => {
   // const user = useAuth();
   const [artists, setArtists] = useState([]);
   const [formInput, setFormInput] = useState(initialState);
+  const [tags, setTags] = useState([]); // For storing fetched tags
+  const [selectedTags, setSelectedTags] = useState([]); // For storing selected tags
 
   useEffect(() => {
     getArtists().then(setArtists);
+    getTags().then(setTags);
 
     if (initialArtwork) {
-      console.warn(initialArtwork);
       const formattedArtwork = {
         ...initialArtwork,
         artist: initialArtwork.artist,
       };
       setFormInput(formattedArtwork);
+
+      if (initialArtwork.tags && Array.isArray(initialArtwork.tags)) {
+        // eslint-disable-next-line react/prop-types
+        const tagIds = initialArtwork.tags.map((tag) => tag.id);
+        setSelectedTags(tagIds);
+      } else {
+        setSelectedTags([]);
+      }
     }
   }, [initialArtwork]);
 
@@ -62,6 +73,16 @@ const ArtworkForm = ({ initialArtwork, user }) => {
     }));
   };
 
+  const handleTagChange = (tagId) => {
+    if (selectedTags.includes(tagId)) {
+      // Remove the tag from the array if it is already included
+      setSelectedTags(selectedTags.filter((id) => id !== tagId));
+    } else {
+      // Add the tag to the array if it is not included
+      setSelectedTags([...selectedTags, tagId]);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -69,6 +90,7 @@ const ArtworkForm = ({ initialArtwork, user }) => {
       ...formInput,
       // eslint-disable-next-line react/prop-types
       user: user.id,
+      tags: selectedTags,
     };
     console.warn(artwork);
 
@@ -192,6 +214,23 @@ const ArtworkForm = ({ initialArtwork, user }) => {
           </Form.Select>
         </FloatingLabel>
 
+        {/* TAGS */}
+        <Form.Group className="mb-3">
+          <Form.Label>Tags</Form.Label>
+          <div>
+            {tags.map((tag) => (
+              <Form.Check
+                key={tag.id}
+                type="checkbox"
+                id={`tag-${tag.id}`}
+                label={tag.label}
+                onChange={() => handleTagChange(tag.id)}
+                checked={selectedTags.includes(tag.id)}
+              />
+            ))}
+          </div>
+        </Form.Group>
+
         <Button variant="primary" type="submit">
           Submit
         </Button>
@@ -210,6 +249,9 @@ ArtworkForm.propTypes = {
     date: PropTypes.string,
     age: PropTypes.number,
     featured: PropTypes.bool,
+    tags: PropTypes.shape({
+      label: PropTypes.string,
+    }),
     user: PropTypes.shape({
       id: PropTypes.number,
     }),
@@ -222,24 +264,5 @@ ArtworkForm.propTypes = {
 ArtworkForm.defaultProps = {
   initialArtwork: initialState,
 };
-
-// ArtistForm.propTypes = {
-// user: PropTypes.shape({
-//   uid: PropTypes.string.isRequired,
-// }).isRequired,
-//   initialGame: PropTypes.shape({
-//     title: PropTypes.string.isRequired,
-//     maker: PropTypes.string.isRequired,
-//     numberOfPlayers: PropTypes.number.isRequired,
-//     skillLevel: PropTypes.number.isRequired,
-//     id: PropTypes.number.isRequired,
-//     gameType: PropTypes.number.isRequired,
-//   }).isRequired,
-//   // onUpdate: PropTypes.func.isRequired,
-// };
-
-// GameForm.defaultProps = {
-//   initialGame: initialState,
-// };
 
 export default ArtworkForm;

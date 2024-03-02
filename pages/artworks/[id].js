@@ -32,29 +32,11 @@ const ArtworkDetails = () => {
     return <div>Loading...</div>;
   }
 
-  console.warn(artworkTags);
-
   const deleteThisArtwork = () => {
     if (window.confirm('Are you sure you want to delete this artwork?')) {
       deleteArtwork(id).then(() => router.push('/'));
     }
   };
-
-  // const createOrderItem = (itemId) => {
-  //   const defaultQuantity = 1;
-  //   addOrderItem(orderDetails.id, itemId, defaultQuantity).then(() => window.confirm('Item sucessfully added to order')).then(() => {
-  //     getSingleOrder(id).then(setOrderDetails);
-  //   });
-  // };
-
-  // const removeItem = (orderItemId, itemName) => {
-  //   if (window.confirm(`Remove ${itemName}?`)) {
-  //     deleteOrderItem(orderDetails.id, orderItemId).then(() => {
-  //       // Refresh the order details to reflect the deletion
-  //       getSingleOrder(id).then(setOrderDetails);
-  //     });
-  //   }
-  // };
 
   return (
     <>
@@ -81,7 +63,7 @@ const ArtworkDetails = () => {
         </div>
 
         <div className="btn-holder">
-          {/* <Button onClick={() => router.push(`/orders/edit/${orderDetails.id}`)}>Edit Artwork</Button> */}
+          <Button onClick={() => router.push(`/artworks/edit/${artworkDetails.id}`)}>Edit Artwork</Button>
           <Button onClick={deleteThisArtwork}>Delete Artwork</Button>
         </div>
       </div>

@@ -2,11 +2,11 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Button, Form, FloatingLabel } from 'react-bootstrap';
-// import { useAuth } from '../utils/context/authContext';
-// import { createGame, getGameTypes, updateGame } from '../../utils/data/gameData';
+import { useAuth } from '../utils/context/authContext';
 import { getArtists } from '../utils/data/artistData';
 import { createArtwork, updateArtwork } from '../utils/data/artworkData';
 import { getTags } from '../utils/data/tagData';
+import { addArtworkTag, removeArtworkTag } from '../utils/data/artworkTagData';
 
 const initialState = {
   id: null,
@@ -20,49 +20,45 @@ const initialState = {
 };
 
 // initialArtwork is a prop passed in from artworks/edit/[id].js, used for updating
-const ArtworkForm = ({ initialArtwork, user }) => {
+const ArtworkForm = ({ initialArtwork }) => {
   const router = useRouter();
-  // const user = useAuth();
+  const { user } = useAuth();
   const [artists, setArtists] = useState([]);
   const [formInput, setFormInput] = useState(initialState);
-  const [tags, setTags] = useState([]); // For storing fetched tags
-  const [selectedTags, setSelectedTags] = useState([]); // For storing selected tags
+  const [tags, setTags] = useState([]); // for storing all fetched tags
+  const [initialTags, setInitialTags] = useState([]); // for storing initial artworktag selection
+  const [selectedTags, setSelectedTags] = useState([]); // for storing changed artworktag selections
 
+  // fires when form loads, checks if this component has mounted (is created and inserted into DOM), and sets initial state for artists and tags with fetch calls if so
   useEffect(() => {
-    getArtists().then(setArtists);
-    getTags().then(setTags);
+    let isMounted = true;
+    getArtists().then((data) => { if (isMounted) setArtists(data); });
+    getTags().then((data) => { if (isMounted) setTags(data); });
 
-    if (initialArtwork) {
+    // updating existing artwork - populates form with existing details, along with setting the dropdown input to the associated artist
+    if (initialArtwork && initialArtwork.artist) {
       const formattedArtwork = {
         ...initialArtwork,
-        artist: initialArtwork.artist,
+        artist: initialArtwork.artist.id,
       };
       setFormInput(formattedArtwork);
-
-      if (initialArtwork.tags && Array.isArray(initialArtwork.tags)) {
-        // eslint-disable-next-line react/prop-types
-        const tagIds = initialArtwork.tags.map((tag) => tag.id);
-        setSelectedTags(tagIds);
-      } else {
-        setSelectedTags([]);
-      }
     }
-  }, [initialArtwork]);
+    // checks if artwork exists and if it has a tags array, then maps over each item in the array, destructuring each item to extract id (as artworkTagId) and further destructuring nested tag item(s) to extract its details, then constructs a new object (tagDetails) with this extracted info
+    if (initialArtwork && initialArtwork.tags) {
+      const tagDetails = initialArtwork.tags.map(({ id: artworkTagId, tag: { id: tagId, label } }) => ({
+        artworkTagId,
+        tagId,
+        label,
+      }));
+      // both selectedTags and initialTags are set to the newly mapped tagDetails array - selectedTags tracks curent tag selection, and initialTags 'remembers' tags' original state when form was loaded
+      setSelectedTags(tagDetails);
+      setInitialTags(tagDetails);
+    }
 
-  // useEffect(() => {
-  //   if (initialArtwork) {
-  //     setFormInput({
-  //       id: initialArtwork.id,
-  //       title: initialArtwork.title,
-  //       img: initialArtwork.img,
-  //       medium: initialArtwork.medium,
-  //       description: initialArtwork.description,
-  //       date: initialArtwork.date,
-  //       age: initialArtwork.age,
-  //       featured: initialArtwork.featured,
-  //     });
-  //   }
-  // }, [initialArtwork]);
+    return () => {
+      isMounted = false;
+    };
+  }, [initialArtwork]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -72,39 +68,63 @@ const ArtworkForm = ({ initialArtwork, user }) => {
     }));
   };
 
-  const handleTagChange = (tagId) => {
-    if (selectedTags.includes(tagId)) {
-      // Remove the tag from the array if it is already included
-      setSelectedTags(selectedTags.filter((id) => id !== tagId));
+  const handleTagChange = (tagId, label) => {
+    const isSelected = selectedTags.some(({ tagId: selectedTagId }) => selectedTagId === tagId);
+    if (isSelected) {
+      setSelectedTags(selectedTags.filter(({ tagId: selectedTagId }) => selectedTagId !== tagId));
     } else {
-      // Add the tag to the array if it is not included
-      setSelectedTags([...selectedTags, tagId]);
+      setSelectedTags([...selectedTags, { tagId, label, artworkTagId: null }]);
     }
   };
 
-  const handleSubmit = (e) => {
+  const manageTags = async (artworkId) => {
+    const tagsToAdd = selectedTags.filter(({ artworkTagId }) => !artworkTagId).map(({ tagId }) => tagId);
+    const tagsToRemove = initialTags.filter(({ artworkTagId }) => !selectedTags.some(({ artworkTagId: selectedArtworkTagId }) => artworkTagId === selectedArtworkTagId));
+
+    const addPromises = tagsToAdd.map((tagId) => addArtworkTag(artworkId, tagId));
+    const removePromises = tagsToRemove.map(({ artworkTagId }) => removeArtworkTag(artworkId, artworkTagId));
+
+    try {
+      await Promise.all([...addPromises, ...removePromises]);
+      console.warn('Tags updated successfully');
+    } catch (error) {
+      console.error('Error updating tags:', error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const artwork = {
+    // Artwork data structure for creation/update.
+    const artworkData = {
       ...formInput,
-      // eslint-disable-next-line react/prop-types
       user: user.id,
-      tags: selectedTags,
     };
-    console.warn(artwork);
 
-    // Send POST request to your API
+    // Check if we're updating an existing artwork or creating a new one.
     if (initialArtwork && initialArtwork.id) {
-      artwork.id = initialArtwork.id;
-      updateArtwork(artwork.id, artwork).then(() => router.push(`/artworks/${artwork.id}`));
+      // Updating existing artwork.
+      artworkData.id = initialArtwork.id;
+      try {
+        await updateArtwork(artworkData.id, artworkData);
+        await manageTags(artworkData.id); // Handle tag updates after the artwork update is successful.
+        router.push(`/artworks/${artworkData.id}`);
+      } catch (error) {
+        console.error('Error updating artwork:', error);
+      }
     } else {
-      createArtwork(artwork).then((data) => {
-        if (data && data.id) {
-          router.push(`/artworks/${data.id}`);
+      // Creating new artwork.
+      try {
+        const createdArtwork = await createArtwork(artworkData);
+        if (createdArtwork && createdArtwork.id) {
+          await manageTags(createdArtwork.id); // Handle tag updates after the artwork creation is successful.
+          router.push(`/artworks/${createdArtwork.id}`);
         } else {
           console.error('Artwork creation failed');
         }
-      });
+      } catch (error) {
+        console.error('Error creating artwork:', error);
+      }
     }
   };
 
@@ -178,17 +198,6 @@ const ArtworkForm = ({ initialArtwork, user }) => {
           />
         </Form.Group>
 
-        {/* <Form.Group className="mb-3">
-          <Form.Label>Featured?</Form.Label>
-          <Form.Control
-            name="featured"
-            required
-            className="form-control"
-            value={formInput.featured}
-            onChange={handleChange}
-          />
-        </Form.Group> */}
-
         {/* ARTIST SELECT  */}
         <FloatingLabel controlId="floatingSelect" label="artist" className="mb-3">
           <Form.Select
@@ -223,8 +232,8 @@ const ArtworkForm = ({ initialArtwork, user }) => {
                 type="checkbox"
                 id={`tag-${tag.id}`}
                 label={tag.label}
-                onChange={() => handleTagChange(tag.id)}
-                checked={selectedTags.includes(tag.id)}
+                onChange={() => handleTagChange(tag.id, tag.label)}
+                checked={selectedTags.some(({ tagId }) => tagId === tag.id)}
               />
             ))}
           </div>
@@ -254,7 +263,7 @@ ArtworkForm.propTypes = {
       }),
     ),
     user: PropTypes.shape({
-      id: PropTypes.number.isRequired, // Assuming id is required; adjust as necessary
+      id: PropTypes.number.isRequired,
     }).isRequired,
     artist: PropTypes.shape({
       id: PropTypes.number,

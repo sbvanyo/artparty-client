@@ -5,7 +5,6 @@ import { getSingleArtist, deleteArtist } from '../../utils/data/artistData';
 import { getArtworksByArtist } from '../../utils/data/artworkData';
 import ArtistCard from '../../components/ArtistCard';
 import ArtworkCard from '../../components/ArtworkCard';
-// import { deleteOrderItem, addOrderItem, getMenuItems } from '../../utils/data/orderItemData';
 
 const ArtistDetails = () => {
   const router = useRouter();
@@ -36,22 +35,6 @@ const ArtistDetails = () => {
       deleteArtist(id).then(() => router.push('/'));
     }
   };
-
-  // const createOrderItem = (itemId) => {
-  //   const defaultQuantity = 1;
-  //   addOrderItem(orderDetails.id, itemId, defaultQuantity).then(() => window.confirm('Item sucessfully added to order')).then(() => {
-  //     getSingleOrder(id).then(setOrderDetails);
-  //   });
-  // };
-
-  // const removeItem = (orderItemId, itemName) => {
-  //   if (window.confirm(`Remove ${itemName}?`)) {
-  //     deleteOrderItem(orderDetails.id, orderItemId).then(() => {
-  //       // Refresh the order details to reflect the deletion
-  //       getSingleOrder(id).then(setOrderDetails);
-  //     });
-  //   }
-  // };
 
   return (
     <>

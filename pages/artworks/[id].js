@@ -1,16 +1,17 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Button, Image } from 'react-bootstrap';
-import { getSingleArtwork, deleteArtwork } from '../../utils/data/artworkData';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Switch, FormGroup, FormControlLabel } from '@mui/material';
+import { getSingleArtwork, deleteArtwork, updateArtwork } from '../../utils/data/artworkData';
 import { getArtworkTags } from '../../utils/data/artworkTagData';
-// import ArtworkCard from '../../components/ArtworkCard';
-// import { deleteOrderItem, addOrderItem, getMenuItems } from '../../utils/data/orderItemData';
 
 const ArtworkDetails = () => {
   const router = useRouter();
   const { id } = router.query;
   const [artworkDetails, setArtworkDetails] = useState();
   const [artworkTags, setArtworkTags] = useState([]);
+  const [featured, setFeatured] = useState(false);
   // const [showModal, setShowModal] = useState(false);
 
   // const handleOpenModal = () => {
@@ -18,8 +19,15 @@ const ArtworkDetails = () => {
   //   setShowModal(true);
   // };
 
+  // useEffect(() => {
+  //   getSingleArtwork(id).then(setArtworkDetails);
+  // }, [id]);
+
   useEffect(() => {
-    getSingleArtwork(id).then(setArtworkDetails);
+    getSingleArtwork(id).then((artwork) => {
+      setArtworkDetails(artwork);
+      setFeatured(artwork.featured || false);
+    });
   }, [id]);
 
   useEffect(() => {
@@ -27,6 +35,13 @@ const ArtworkDetails = () => {
       getArtworkTags(artworkDetails.id).then(setArtworkTags);
     }
   }, [artworkDetails]);
+
+  const toggleFeatured = () => {
+    const featuredSelection = !featured;
+    setFeatured(featuredSelection);
+    updateArtwork(id, { featured: featuredSelection });
+    console.warn(featured);
+  };
 
   if (!artworkDetails) {
     return <div>Loading...</div>;
@@ -44,6 +59,14 @@ const ArtworkDetails = () => {
 
       <div id="single-artwork">
         <Image src={artworkDetails.img} />
+
+        <FormGroup>
+          <FormControlLabel
+            control={<Switch checked={featured} onChange={toggleFeatured} />}
+            label="this art wants to PARTY"
+          />
+
+        </FormGroup>
         <div id="single-artwork-details">
           <p>by: {artworkDetails.artist.name}, age {artworkDetails.age}</p>
           <p>Medium: {artworkDetails.medium}</p>

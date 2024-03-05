@@ -109,3 +109,14 @@ img {
 #tags-header {
   margin: 0;
 }
+
+
+#party-card {
+  display: flex;
+}
+#featured-artwork-container {
+  display: flex;
+}
+#featured-artwork {
+  height: 80%;
+}

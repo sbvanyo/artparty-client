@@ -14,6 +14,13 @@ const getArtworksByArtist = (artistId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getFeaturedArtworksByArtist = (artistId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/artworks?artist=${artistId}&featured=true`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
 const getSingleArtwork = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/artworks/${id}`)
     .then((response) => response.json())
@@ -80,6 +87,7 @@ const deleteArtwork = (id) => new Promise((resolve, reject) => {
 export {
   getArtworks,
   getArtworksByArtist,
+  getFeaturedArtworksByArtist,
   getSingleArtwork,
   createArtwork,
   updateArtwork,

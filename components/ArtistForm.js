@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../utils/context/authContext';
-// import { createGame, getGameTypes, updateGame } from '../../utils/data/gameData';
 import { createArtist, updateArtist } from '../utils/data/artistData';
 
 const initialState = {
@@ -13,27 +12,10 @@ const initialState = {
 };
 
 // initialArtist is a prop passed in from artists/edit/[id].js, used for updating
-const ArtistForm = ({ initialArtist }) => {
+const ArtistForm = ({ initialArtist, closeModal }) => {
   const router = useRouter();
   const { user } = useAuth();
-  // const [gameTypes, setGameTypes] = useState([]);
   const [formInput, setFormInput] = useState(initialState);
-
-  // useEffect(() => {
-  //   console.warn(initialGame);
-  //   console.warn(currentGame);
-  //   // TODO: Get the game types, then set the state
-  //   getGameTypes().then(setGameTypes);
-
-  //   if (initialGame) {
-  //     const formattedGame = {
-  //       ...initialGame,
-  //       gameTypeId: initialGame.gameType,
-  //     };
-  //     setCurrentGame(formattedGame);
-  //   }
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [initialGame]);
 
   useEffect(() => {
     if (initialArtist) {
@@ -53,27 +35,31 @@ const ArtistForm = ({ initialArtist }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const artist = {
-      name: formInput.name,
-      img: formInput.img,
-      user: user.id,
-    };
+    try {
+      const artist = {
+        name: formInput.name,
+        img: formInput.img,
+        user: user.id,
+      };
 
-    // Send POST request to your API
-    if (initialArtist && initialArtist.id) {
-      artist.id = initialArtist.id;
-      updateArtist(formInput.id, artist).then(() => router.push(`/artists/${artist.id}`));
-    } else {
-      createArtist(artist).then((data) => {
-        if (data && data.id) {
-          router.push(`/artists/${data.id}`);
+      if (formInput.id) { // Updating an existing artist
+        await updateArtist(formInput.id, artist);
+        router.push(`/artists/${formInput.id}`).then(() => router.reload(window.location.pathname));
+      } else { // Creating a new artist
+        const response = await createArtist(artist);
+        if (response && response.id) {
+          router.push(`/artists/${response.id}`);
         } else {
-          console.error('Artist creation failed');
+          throw new Error('Artist creation failed');
         }
-      });
+      }
+
+      closeModal();
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -117,6 +103,7 @@ ArtistForm.propTypes = {
       id: PropTypes.number,
     }),
   }),
+  closeModal: PropTypes.func.isRequired,
 };
 
 ArtistForm.defaultProps = {

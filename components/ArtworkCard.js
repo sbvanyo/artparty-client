@@ -1,22 +1,16 @@
-import Router from 'next/router';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
+import Link from 'next/link';
 
 const ArtworkCard = ({ artworkObj }) => (
   <Card id="artwork-card">
     {/* <Card.Header>Artist: {artistObj.name}</Card.Header> */}
     <Card.Body id="artwork-card-body">
       {/* <Card.Title>{artistObj.name}</Card.Title> */}
-      <Card.Img src={artworkObj.img} id="artwork-img" />
-      <Button
-        id="btn-view-artwork"
-        onClick={() => {
-          Router.push(`/artworks/${artworkObj.id}`);
-        }}
-      >
-        View Artwork
-      </Button>
+      <Link href={`/artworks/${artworkObj.id}`} passHref>
+        <Card.Img src={artworkObj.img} id="artwork-img" style={{ cursor: 'pointer' }} />
+      </Link>
     </Card.Body>
     {/* <Card.Footer className="text-muted">Order Type: {orderObj.type}</Card.Footer> */}
   </Card>

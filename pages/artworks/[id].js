@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Button, Image } from 'react-bootstrap';
+import { Button, Image, Modal } from 'react-bootstrap';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Switch, FormGroup, FormControlLabel } from '@mui/material';
 import { getSingleArtwork, deleteArtwork, updateArtwork } from '../../utils/data/artworkData';
 import { getArtworkTags } from '../../utils/data/artworkTagData';
+import ArtworkForm from '../../components/ArtworkForm';
 
 const ArtworkDetails = () => {
   const router = useRouter();
@@ -12,16 +13,15 @@ const ArtworkDetails = () => {
   const [artworkDetails, setArtworkDetails] = useState();
   const [artworkTags, setArtworkTags] = useState([]);
   const [featured, setFeatured] = useState(false);
-  // const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  // const handleOpenModal = () => {
-  //   getMenuItems().then(setMenuItems);
-  //   setShowModal(true);
-  // };
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
 
-  // useEffect(() => {
-  //   getSingleArtwork(id).then(setArtworkDetails);
-  // }, [id]);
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   useEffect(() => {
     getSingleArtwork(id).then((artwork) => {
@@ -58,7 +58,7 @@ const ArtworkDetails = () => {
       <h1 className="detailsTitle" style={{ textAlign: 'center', fontSize: 70, color: 'black' }}>Artwork: {artworkDetails.title}</h1>
 
       <div id="single-artwork">
-        <Image src={artworkDetails.img} />
+        <Image src={artworkDetails.img} id="single-artwork-img" />
 
         <FormGroup>
           <FormControlLabel
@@ -86,47 +86,19 @@ const ArtworkDetails = () => {
         </div>
 
         <div className="btn-holder">
-          <Button onClick={() => router.push(`/artworks/edit/${artworkDetails.id}`)}>Edit Artwork</Button>
+          <Button onClick={handleOpenModal}>Edit Artwork</Button>
           <Button onClick={deleteThisArtwork}>Delete Artwork</Button>
         </div>
       </div>
 
-      <hr />
-
-      <div>
-        <div id="artist-artwork-container">
-          {/* <h3 style={{ padding: 20 }}>Artworks by {artistDetails.name}:</h3> */}
-          {/* {
-            orderDetails.open
-            && <Button onClick={handleOpenModal}>Add Item</Button>
-          }
-          <Modal show={showModal} onHide={() => setShowModal(false)}>
-            <Modal.Header closeButton>
-              <Modal.Title>Add an Item</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {menuItems.map((menuItem) => (
-                <section key={menuItem.id} className="menu-items">
-                  <div className="order-item-name">{menuItem.name}</div>
-                  <div>${menuItem.price}</div>
-                  <Button onClick={() => createOrderItem(menuItem.id)}>Add Item</Button>
-                </section>
-              ))}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => setShowModal(false)}>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal> */}
-        </div>
-      </div>
-      {/* <div className="btn-holder">
-        {
-          orderDetails.open
-          && <Button onClick={() => router.push(`/orders/checkout?id=${orderDetails.id}`)}>Continue to Checkout</Button>
-        }
-      </div> */}
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Update Artwork</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {showModal && <ArtworkForm initialArtwork={artworkDetails} closeModal={handleCloseModal} />}
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import ArtistForm from '../../../components/ArtistForm';
 import { useAuth } from '../../../utils/context/authContext';
 import { getSingleArtist } from '../../../utils/data/artistData';
 
-const UpdateArtist = () => {
+const UpdateArtist = ({ closeModal }) => {
   const router = useRouter();
   const { user } = useAuth();
   const { id } = router.query;
@@ -20,9 +21,14 @@ const UpdateArtist = () => {
       <ArtistForm
         user={user}
         initialArtist={updateArtist}
+        closeModal={closeModal}
       />
     </div>
   );
+};
+
+UpdateArtist.propTypes = {
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default UpdateArtist;

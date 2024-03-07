@@ -1,22 +1,26 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { getSingleArtist, deleteArtist } from '../../utils/data/artistData';
 import { getArtworksByArtist } from '../../utils/data/artworkData';
 import ArtistCard from '../../components/ArtistCard';
 import ArtworkCard from '../../components/ArtworkCard';
+import ArtistForm from '../../components/ArtistForm';
 
 const ArtistDetails = () => {
   const router = useRouter();
   const { id } = router.query;
   const [artistDetails, setArtistDetails] = useState();
-  // const [showModal, setShowModal] = useState(false);
   const [artistArtworks, setArtistArtworks] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
-  // const handleOpenModal = () => {
-  //   getMenuItems().then(setMenuItems);
-  //   setShowModal(true);
-  // };
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   useEffect(() => {
     getSingleArtist(id).then(setArtistDetails);
@@ -42,7 +46,7 @@ const ArtistDetails = () => {
       <div id="single-artist-details">
         <ArtistCard artistObj={artistDetails} />
         <div className="btn-holder">
-          <Button onClick={() => router.push(`/artists/edit/${artistDetails.id}`)}>Edit Artist</Button>
+          <Button onClick={handleOpenModal}>Edit Artist</Button>
           <Button onClick={deleteThisArtist}>Delete Artist</Button>
         </div>
       </div>
@@ -52,46 +56,24 @@ const ArtistDetails = () => {
       <div>
         <div id="artist-artwork-container">
           <h3 style={{ padding: 20 }}>Artworks by {artistDetails.name}:</h3>
-          {/* {
-            orderDetails.open
-            && <Button onClick={handleOpenModal}>Add Item</Button>
-          }
-          <Modal show={showModal} onHide={() => setShowModal(false)}>
-            <Modal.Header closeButton>
-              <Modal.Title>Add an Item</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {menuItems.map((menuItem) => (
-                <section key={menuItem.id} className="menu-items">
-                  <div className="order-item-name">{menuItem.name}</div>
-                  <div>${menuItem.price}</div>
-                  <Button onClick={() => createOrderItem(menuItem.id)}>Add Item</Button>
-                </section>
-              ))}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => setShowModal(false)}>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal> */}
         </div>
-        <div id="artist-artworks-container">
-          <div id="artist-container">
-            {artistArtworks.map((artwork) => (
-              <section key={`artwork--${artwork.id}`} className="artwork">
-                <ArtworkCard key={artwork.id} artworkObj={artwork} />
-              </section>
-            ))}
-          </div>
+        <div id="artist-artworks">
+          {artistArtworks.map((artwork) => (
+            <section key={`artwork--${artwork.id}`} className="artwork">
+              <ArtworkCard key={artwork.id} artworkObj={artwork} />
+            </section>
+          ))}
         </div>
       </div>
-      {/* <div className="btn-holder">
-        {
-          orderDetails.open
-          && <Button onClick={() => router.push(`/orders/checkout?id=${orderDetails.id}`)}>Continue to Checkout</Button>
-        }
-      </div> */}
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Update Artist</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {showModal && <ArtistForm initialArtist={artistDetails} closeModal={handleCloseModal} />}
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

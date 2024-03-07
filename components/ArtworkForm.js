@@ -20,7 +20,7 @@ const initialState = {
 };
 
 // initialArtwork is a prop passed in from artworks/edit/[id].js, used for updating
-const ArtworkForm = ({ initialArtwork }) => {
+const ArtworkForm = ({ initialArtwork, closeModal }) => {
   const router = useRouter();
   const { user } = useAuth();
   const [artists, setArtists] = useState([]);
@@ -101,30 +101,50 @@ const ArtworkForm = ({ initialArtwork }) => {
       user: user.id,
     };
 
-    // Check if we're updating an existing artwork or creating a new one.
-    if (initialArtwork && initialArtwork.id) {
-      // Updating existing artwork.
-      artworkData.id = initialArtwork.id;
-      try {
+    // // Check if we're updating an existing artwork or creating a new one.
+    // if (initialArtwork && initialArtwork.id) {
+    //   // Updating existing artwork.
+    //   artworkData.id = initialArtwork.id;
+    //   try {
+    //     await updateArtwork(artworkData.id, artworkData);
+    //     await manageTags(artworkData.id); // Handle tag updates after the artwork update is successful.
+    //     router.push(`/artworks/${artworkData.id}`);
+    //   } catch (error) {
+    //     console.error('Error updating artwork:', error);
+    //   }
+    // } else {
+    //   // Creating new artwork.
+    //   try {
+    //     const createdArtwork = await createArtwork(artworkData);
+    //     if (createdArtwork && createdArtwork.id) {
+    //       await manageTags(createdArtwork.id); // Handle tag updates after the artwork creation is successful.
+    //       router.push(`/artworks/${createdArtwork.id}`);
+    //     } else {
+    //       console.error('Artwork creation failed');
+    //     }
+    //   } catch (error) {
+    //     console.error('Error creating artwork:', error);
+    //   }
+    // }
+    try {
+      if (initialArtwork && initialArtwork.id) {
+        // Updating existing artwork.
         await updateArtwork(artworkData.id, artworkData);
         await manageTags(artworkData.id); // Handle tag updates after the artwork update is successful.
-        router.push(`/artworks/${artworkData.id}`);
-      } catch (error) {
-        console.error('Error updating artwork:', error);
-      }
-    } else {
-      // Creating new artwork.
-      try {
+        router.push(`/artworks/${artworkData.id}`).then(() => window.location.reload());
+      } else {
+        // Creating new artwork.
         const createdArtwork = await createArtwork(artworkData);
         if (createdArtwork && createdArtwork.id) {
           await manageTags(createdArtwork.id); // Handle tag updates after the artwork creation is successful.
           router.push(`/artworks/${createdArtwork.id}`);
         } else {
-          console.error('Artwork creation failed');
+          throw new Error('Artwork creation failed');
         }
-      } catch (error) {
-        console.error('Error creating artwork:', error);
       }
+      closeModal();
+    } catch (error) {
+      console.error('Error submitting artwork form:', error);
     }
   };
 
@@ -269,6 +289,7 @@ ArtworkForm.propTypes = {
       id: PropTypes.number,
     }),
   }),
+  closeModal: PropTypes.func.isRequired,
 };
 
 ArtworkForm.defaultProps = {

@@ -13,7 +13,6 @@ const ArtistDetails = () => {
   const [artistDetails, setArtistDetails] = useState();
   const [artistArtworks, setArtistArtworks] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  // const [modalContent, setModalContent] = useState('');
 
   const handleOpenModal = () => {
     setShowModal(true);

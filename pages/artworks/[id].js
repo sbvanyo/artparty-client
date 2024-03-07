@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Button, Image } from 'react-bootstrap';
+import { Button, Image, Modal } from 'react-bootstrap';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Switch, FormGroup, FormControlLabel } from '@mui/material';
 import { getSingleArtwork, deleteArtwork, updateArtwork } from '../../utils/data/artworkData';
 import { getArtworkTags } from '../../utils/data/artworkTagData';
+import ArtworkForm from '../../components/ArtworkForm';
 
 const ArtworkDetails = () => {
   const router = useRouter();
@@ -12,16 +13,15 @@ const ArtworkDetails = () => {
   const [artworkDetails, setArtworkDetails] = useState();
   const [artworkTags, setArtworkTags] = useState([]);
   const [featured, setFeatured] = useState(false);
-  // const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  // const handleOpenModal = () => {
-  //   getMenuItems().then(setMenuItems);
-  //   setShowModal(true);
-  // };
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
 
-  // useEffect(() => {
-  //   getSingleArtwork(id).then(setArtworkDetails);
-  // }, [id]);
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   useEffect(() => {
     getSingleArtwork(id).then((artwork) => {
@@ -86,10 +86,19 @@ const ArtworkDetails = () => {
         </div>
 
         <div className="btn-holder">
-          <Button onClick={() => router.push(`/artworks/edit/${artworkDetails.id}`)}>Edit Artwork</Button>
+          <Button onClick={handleOpenModal}>Edit Artwork</Button>
           <Button onClick={deleteThisArtwork}>Delete Artwork</Button>
         </div>
       </div>
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Update Artwork</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {showModal && <ArtworkForm initialArtwork={artworkDetails} closeModal={handleCloseModal} />}
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

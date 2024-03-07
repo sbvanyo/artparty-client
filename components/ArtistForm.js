@@ -35,32 +35,6 @@ const ArtistForm = ({ initialArtist, closeModal }) => {
     }));
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const artist = {
-  //     name: formInput.name,
-  //     img: formInput.img,
-  //     user: user.id,
-  //   };
-
-  //   // Send POST request to your API
-  //   if (initialArtist && initialArtist.id) {
-  //     artist.id = initialArtist.id;
-  //     updateArtist(formInput.id, artist).then(() => router.push(`/artists/${artist.id}`));
-  //   } else {
-  //     createArtist(artist).then((data) => {
-  //       if (data && data.id) {
-  //         router.push(`/artists/${data.id}`);
-  //       } else {
-  //         console.error('Artist creation failed');
-  //       }
-  //     });
-  //   }
-
-  //   closeModal();
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -83,11 +57,9 @@ const ArtistForm = ({ initialArtist, closeModal }) => {
         }
       }
 
-      // Assuming response is successful if no error was thrown
       closeModal();
     } catch (error) {
       console.error(error);
-      // Handle error (optionally close modal or keep it open for the user to correct the data)
     }
   };
 

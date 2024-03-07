@@ -58,7 +58,7 @@ const ArtworkDetails = () => {
       <h1 className="detailsTitle" style={{ textAlign: 'center', fontSize: 70, color: 'black' }}>Artwork: {artworkDetails.title}</h1>
 
       <div id="single-artwork">
-        <Image src={artworkDetails.img} />
+        <Image src={artworkDetails.img} id="single-artwork-img" />
 
         <FormGroup>
           <FormControlLabel
@@ -90,43 +90,6 @@ const ArtworkDetails = () => {
           <Button onClick={deleteThisArtwork}>Delete Artwork</Button>
         </div>
       </div>
-
-      <hr />
-
-      <div>
-        <div id="artist-artwork-container">
-          {/* <h3 style={{ padding: 20 }}>Artworks by {artistDetails.name}:</h3> */}
-          {/* {
-            orderDetails.open
-            && <Button onClick={handleOpenModal}>Add Item</Button>
-          }
-          <Modal show={showModal} onHide={() => setShowModal(false)}>
-            <Modal.Header closeButton>
-              <Modal.Title>Add an Item</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {menuItems.map((menuItem) => (
-                <section key={menuItem.id} className="menu-items">
-                  <div className="order-item-name">{menuItem.name}</div>
-                  <div>${menuItem.price}</div>
-                  <Button onClick={() => createOrderItem(menuItem.id)}>Add Item</Button>
-                </section>
-              ))}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => setShowModal(false)}>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal> */}
-        </div>
-      </div>
-      {/* <div className="btn-holder">
-        {
-          orderDetails.open
-          && <Button onClick={() => router.push(`/orders/checkout?id=${orderDetails.id}`)}>Continue to Checkout</Button>
-        }
-      </div> */}
     </>
   );
 };

@@ -21,13 +21,18 @@ body {
   background-color: #ecb5f7;
 }
 
-img {
-  max-width: 100%;
-  border: white 5px solid;
+nav {
+  background-color: rgb(58, 58, 163);
+  height: 15vh;
 }
 
+/* img {
+  max-width: 100%;
+  border: white 5px solid;
+} */
+
 .page-title {
-  margin: 20px auto;
+  margin: 40px auto;
   text-align: center;
 }
 
@@ -38,37 +43,59 @@ img {
 #greeting {
   margin: 0 auto;
 }
-#home-components {
-  display: flex;
-  flex-direction: column;
+
+.home-component {
+  margin: 10vh 0;
 }
 
+
+/* ARTIST */
 #artist-container {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
 #artist-card {
   margin: 10px;
-  width: 15vw;
-  height: auto;
-  min-height: 329px;
+  width: 12rem;
+  height: 12rem;
+  /* min-height: 329px; */
   display: flex;
-  /* border-radius: 50%; */
+  text-align: center;
+  border: 8px solid rgb(52, 52, 168);
+  border-radius: 50%;
 }
 #artist-card-body {
-  max-height: 100%;
+  max-height: 12rem;
   display: flex;
   flex-direction: column;
+  border-radius: 50%;
+  margin-bottom: 1rem;
 }
-#btn-view-artist {
-  align-self: center;
+#artist-img {
+  border-radius: 50%;
+  /* height: 100%; */
+  max-height: 100%;
+  /* width: auto; */
+}
+#single-artist-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.btn-holder {
+  margin-top: 10%;
+}
+#artist-artworks {
+  display: flex;
 }
 
 
-
-
+/* ARTWORK */
+.artwork {
+  margin-top: auto;
+}
 #artwork-container {
   /* display: flex;
   flex-direction: row;
@@ -84,17 +111,36 @@ img {
   width: fit-content;
   max-width: 330px;
   display: flex;
+  border-radius: 5%;
 }
-.card-img {
+#artwork-img {
   width: 100%;
   height: auto;
+  border: white 5px solid;
+  max-width: 100%;
 }
 
+
+
+/* SINGLE ARTWORK */
+#single-artwork {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#single-artwork-img {
+  height: 80vh;
+  width: auto;
+  border: 10px solid whitesmoke;
+  border-radius: 25px;
+  margin: 5% 5% 2% 5%;
+}
 #single-artwork-details {
   background-color: whitesmoke;
   margin: 5% 0 1% 0;
   padding: 2%;
   border-radius: 25px;
+  width: 80%;
 }
 #artwork-tags-container {
   background-color: whitesmoke;
@@ -102,6 +148,7 @@ img {
   border-radius: 25px;
   display: flex;
   align-items: center;
+  width: 80%;
 }
 .artwork-tags {
   margin: 0 5px;

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Button, Form, FloatingLabel } from 'react-bootstrap';
-import { useAuth } from '../utils/context/authContext';
+// import { useAuth } from '../utils/context/authContext';
 import { getArtists } from '../utils/data/artistData';
 import { createArtwork, updateArtwork } from '../utils/data/artworkData';
 import { getTags } from '../utils/data/tagData';
@@ -15,14 +15,14 @@ const initialState = {
   medium: '',
   description: '',
   date: '',
-  age: '',
+  age: 0,
   featured: false,
 };
 
 // initialArtwork is a prop passed in from artworks/edit/[id].js, used for updating
 const ArtworkForm = ({ initialArtwork, closeModal }) => {
   const router = useRouter();
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [artists, setArtists] = useState([]);
   const [formInput, setFormInput] = useState(initialState);
   const [tags, setTags] = useState([]); // for storing all fetched tags
@@ -34,6 +34,7 @@ const ArtworkForm = ({ initialArtwork, closeModal }) => {
     let isMounted = true;
     getArtists().then((data) => { if (isMounted) setArtists(data); });
     getTags().then((data) => { if (isMounted) setTags(data); });
+    console.warn(initialArtwork);
 
     // updating existing artwork - populates form with existing details, along with setting the dropdown input to the associated artist
     if (initialArtwork && initialArtwork.artist) {
@@ -62,9 +63,16 @@ const ArtworkForm = ({ initialArtwork, closeModal }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let numValue = value;
+
+    // If the field being changed is 'age', convert the value to a number
+    if (name === 'age' && value !== '') {
+      numValue = Number(value);
+    }
+
     setFormInput((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: numValue,
     }));
   };
 
@@ -95,37 +103,14 @@ const ArtworkForm = ({ initialArtwork, closeModal }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const userId = initialArtwork?.user?.id || null;
+
     // Artwork data structure for creation/update.
     const artworkData = {
       ...formInput,
-      user: user.id,
+      user: userId,
     };
 
-    // // Check if we're updating an existing artwork or creating a new one.
-    // if (initialArtwork && initialArtwork.id) {
-    //   // Updating existing artwork.
-    //   artworkData.id = initialArtwork.id;
-    //   try {
-    //     await updateArtwork(artworkData.id, artworkData);
-    //     await manageTags(artworkData.id); // Handle tag updates after the artwork update is successful.
-    //     router.push(`/artworks/${artworkData.id}`);
-    //   } catch (error) {
-    //     console.error('Error updating artwork:', error);
-    //   }
-    // } else {
-    //   // Creating new artwork.
-    //   try {
-    //     const createdArtwork = await createArtwork(artworkData);
-    //     if (createdArtwork && createdArtwork.id) {
-    //       await manageTags(createdArtwork.id); // Handle tag updates after the artwork creation is successful.
-    //       router.push(`/artworks/${createdArtwork.id}`);
-    //     } else {
-    //       console.error('Artwork creation failed');
-    //     }
-    //   } catch (error) {
-    //     console.error('Error creating artwork:', error);
-    //   }
-    // }
     try {
       if (initialArtwork && initialArtwork.id) {
         // Updating existing artwork.

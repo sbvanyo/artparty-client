@@ -2,9 +2,6 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
-// import {
-//   getStorage, ref, uploadBytes, getDownloadURL,
-// } from 'firebase/storage';
 import 'firebase/storage';
 import firebase from 'firebase/app';
 import { useAuth } from '../utils/context/authContext';
@@ -16,20 +13,26 @@ const initialState = {
   id: null,
 };
 
-// initialArtist is a prop passed in from artists/edit/[id].js, used for updating
 const ArtistForm = ({ initialArtist, closeModal }) => {
   const router = useRouter();
   const { user } = useAuth();
   const [formInput, setFormInput] = useState(initialState);
   const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState('');
 
   useEffect(() => {
     if (initialArtist) {
+      console.warn(initialArtist);
+      const urlParts = initialArtist.img.split('/');
+      const name = urlParts[urlParts.length - 1]; // Assuming the file name is the last part of the URL
+
       setFormInput({
         name: initialArtist.name,
         img: initialArtist.img,
         id: initialArtist.id,
       });
+
+      setFileName(name); // Set extracted file name
     }
   }, [initialArtist]);
 
@@ -37,6 +40,7 @@ const ArtistForm = ({ initialArtist, closeModal }) => {
     const { name, value, files } = e.target;
     if (name === 'img' && files.length > 0) {
       setFile(files[0]);
+      setFileName(files[0].name);
     } else {
       setFormInput((prevState) => ({
         ...prevState,
@@ -47,25 +51,30 @@ const ArtistForm = ({ initialArtist, closeModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!file) {
-      console.error('No file uploaded');
-      return;
+
+    let initialImg = formInput.img; // When updating, default to existing image if a new image is not selected for upload
+
+    if (file) {
+      const storage = firebase.storage();
+      const storageRef = storage.ref(`images/${file.name}`);
+
+      try {
+        // Upload the file to Firebase Storage
+        const snapshot = await storageRef.put(file);
+        initialImg = await snapshot.ref.getDownloadURL(); // Get the URL of the uploaded file
+      } catch (error) {
+        console.error('Upload failed', error);
+        return;
+      }
     }
 
-    const storage = firebase.storage();
-    const storageRef = storage.ref(`images/${file.name}`);
+    const artist = {
+      name: formInput.name,
+      img: initialImg,
+      user: user.id,
+    };
 
     try {
-      // Upload the file to Firebase Storage
-      const snapshot = await storageRef.put(file);
-      const url = await snapshot.ref.getDownloadURL(); // Get the URL of the uploaded file
-
-      const artist = {
-        name: formInput.name,
-        img: url,
-        user: user.id,
-      };
-
       if (formInput.id) { // Updating an existing artist
         await updateArtist(formInput.id, artist);
         router.push(`/artists/${formInput.id}`).then(() => router.reload(window.location.pathname));
@@ -80,7 +89,7 @@ const ArtistForm = ({ initialArtist, closeModal }) => {
 
       closeModal();
     } catch (error) {
-      console.error('Upload failed', error);
+      console.error('Failed to save Artist', error);
     }
   };
 
@@ -101,10 +110,11 @@ const ArtistForm = ({ initialArtist, closeModal }) => {
           <Form.Label>Artist Photo</Form.Label>
           <Form.Control
             name="img"
-            required
+            required={!formInput.img} // Require file only if there's no existing image
             type="file"
             onChange={handleChange}
           />
+          {fileName && <div className="mt-2">Initial file: {fileName}</div>}
         </Form.Group>
 
         <Button variant="primary" type="submit">
@@ -120,9 +130,10 @@ ArtistForm.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     img: PropTypes.string,
-    user: PropTypes.shape({
-      id: PropTypes.number,
-    }),
+    user: PropTypes.number,
+    // user: PropTypes.shape({
+    //   id: PropTypes.number,
+    // }),
   }),
   closeModal: PropTypes.func.isRequired,
 };

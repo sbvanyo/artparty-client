@@ -2,7 +2,9 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Button, Form, FloatingLabel } from 'react-bootstrap';
-// import { useAuth } from '../utils/context/authContext';
+import 'firebase/storage';
+import firebase from 'firebase/app';
+import { useAuth } from '../utils/context/authContext';
 import { getArtists } from '../utils/data/artistData';
 import { createArtwork, updateArtwork } from '../utils/data/artworkData';
 import { getTags } from '../utils/data/tagData';
@@ -19,15 +21,16 @@ const initialState = {
   featured: false,
 };
 
-// initialArtwork is a prop passed in from artworks/edit/[id].js, used for updating
 const ArtworkForm = ({ initialArtwork, closeModal }) => {
   const router = useRouter();
-  // const { user } = useAuth();
+  const { user } = useAuth();
   const [artists, setArtists] = useState([]);
   const [formInput, setFormInput] = useState(initialState);
-  const [tags, setTags] = useState([]); // for storing all fetched tags
-  const [initialTags, setInitialTags] = useState([]); // for storing initial artworktag selection
-  const [selectedTags, setSelectedTags] = useState([]); // for storing changed artworktag selections
+  const [tags, setTags] = useState([]);
+  const [initialTags, setInitialTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState('');
 
   // fires when form loads, checks if this component has mounted (is created and inserted into DOM), and sets initial state for artists and tags with fetch calls if so
   useEffect(() => {
@@ -43,6 +46,12 @@ const ArtworkForm = ({ initialArtwork, closeModal }) => {
         artist: initialArtwork.artist.id,
       };
       setFormInput(formattedArtwork);
+    }
+    if (initialArtwork && initialArtwork.img) {
+      const urlParts = initialArtwork.img.split('/');
+      const name = urlParts[urlParts.length - 1]; // Extracts file name from end of URL
+
+      setFileName(name);
     }
     // checks if artwork exists and if it has a tags array, then maps over each item in the array, destructuring each item to extract id (as artworkTagId) and further destructuring nested tag item(s) to extract its details, then constructs a new object (tagDetails) with this extracted info
     if (initialArtwork && initialArtwork.tags) {
@@ -62,18 +71,23 @@ const ArtworkForm = ({ initialArtwork, closeModal }) => {
   }, [initialArtwork]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    let numValue = value;
+    const { name, value, files } = e.target;
+    if (name === 'img' && files.length > 0) {
+      setFile(files[0]);
+      setFileName(files[0].name);
+    } else {
+      let numValue = value;
 
-    // If the field being changed is 'age', convert the value to a number
-    if (name === 'age' && value !== '') {
-      numValue = Number(value);
+      // If the field being changed is 'age', convert the value to a number
+      if (name === 'age' && value !== '') {
+        numValue = Number(value);
+      }
+
+      setFormInput((prevState) => ({
+        ...prevState,
+        [name]: numValue,
+      }));
     }
-
-    setFormInput((prevState) => ({
-      ...prevState,
-      [name]: numValue,
-    }));
   };
 
   const handleTagChange = (tagId, label) => {
@@ -103,16 +117,33 @@ const ArtworkForm = ({ initialArtwork, closeModal }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userId = initialArtwork?.user?.id || null;
+    let initialImg = formInput.img; // When updating, default to existing image if a new image is not selected for upload
+
+    if (file) {
+      const storage = firebase.storage();
+      const storageRef = storage.ref(`images/${file.name}`);
+
+      try {
+        // Upload the file to Firebase Storage
+        const snapshot = await storageRef.put(file);
+        initialImg = await snapshot.ref.getDownloadURL(); // Get the URL of the uploaded file
+      } catch (error) {
+        console.error('Upload failed', error);
+        return;
+      }
+    }
+
+    // const userId = initialArtwork?.user?.id || null;
 
     // Artwork data structure for creation/update.
     const artworkData = {
       ...formInput,
-      user: userId,
+      img: initialImg,
+      user: user.id,
     };
 
     try {
-      if (initialArtwork && initialArtwork.id) {
+      if (formInput.id) {
         // Updating existing artwork.
         await updateArtwork(artworkData.id, artworkData);
         await manageTags(artworkData.id); // Handle tag updates after the artwork update is successful.
@@ -151,11 +182,12 @@ const ArtworkForm = ({ initialArtwork, closeModal }) => {
           <Form.Label>Artwork Photo</Form.Label>
           <Form.Control
             name="img"
-            required
+            required={!formInput.img} // Require file only if there's no existing image
             className="form-control"
-            value={formInput.img}
+            type="file"
             onChange={handleChange}
           />
+          {fileName && <div className="mt-2">Initial file: {fileName}</div>}
         </Form.Group>
 
         <Form.Group className="mb-3">

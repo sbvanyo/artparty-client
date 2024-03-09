@@ -24,7 +24,7 @@ const ArtistForm = ({ initialArtist, closeModal }) => {
     if (initialArtist) {
       console.warn(initialArtist);
       const urlParts = initialArtist.img.split('/');
-      const name = urlParts[urlParts.length - 1]; // Assuming the file name is the last part of the URL
+      const name = urlParts[urlParts.length - 1]; // Extracts file name from end of URL
 
       setFormInput({
         name: initialArtist.name,

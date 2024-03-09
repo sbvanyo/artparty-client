@@ -2,6 +2,11 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
+// import {
+//   getStorage, ref, uploadBytes, getDownloadURL,
+// } from 'firebase/storage';
+import 'firebase/storage';
+import firebase from 'firebase/app';
 import { useAuth } from '../utils/context/authContext';
 import { createArtist, updateArtist } from '../utils/data/artistData';
 
@@ -16,6 +21,7 @@ const ArtistForm = ({ initialArtist, closeModal }) => {
   const router = useRouter();
   const { user } = useAuth();
   const [formInput, setFormInput] = useState(initialState);
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     if (initialArtist) {
@@ -28,20 +34,35 @@ const ArtistForm = ({ initialArtist, closeModal }) => {
   }, [initialArtist]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormInput((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    const { name, value, files } = e.target;
+    if (name === 'img' && files.length > 0) {
+      setFile(files[0]);
+    } else {
+      setFormInput((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!file) {
+      console.error('No file uploaded');
+      return;
+    }
+
+    const storage = firebase.storage();
+    const storageRef = storage.ref(`images/${file.name}`);
 
     try {
+      // Upload the file to Firebase Storage
+      const snapshot = await storageRef.put(file);
+      const url = await snapshot.ref.getDownloadURL(); // Get the URL of the uploaded file
+
       const artist = {
         name: formInput.name,
-        img: formInput.img,
+        img: url,
         user: user.id,
       };
 
@@ -59,7 +80,7 @@ const ArtistForm = ({ initialArtist, closeModal }) => {
 
       closeModal();
     } catch (error) {
-      console.error(error);
+      console.error('Upload failed', error);
     }
   };
 
@@ -81,7 +102,7 @@ const ArtistForm = ({ initialArtist, closeModal }) => {
           <Form.Control
             name="img"
             required
-            value={formInput.img}
+            type="file"
             onChange={handleChange}
           />
         </Form.Group>

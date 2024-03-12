@@ -187,7 +187,7 @@ const ArtworkForm = ({ initialArtwork, closeModal }) => {
             type="file"
             onChange={handleChange}
           />
-          {fileName && <div className="mt-2">Initial file: {fileName}</div>}
+          {formInput.img && <div className="mt-2">Initial file: {fileName}</div>}
         </Form.Group>
 
         <Form.Group className="mb-3">

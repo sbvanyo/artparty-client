@@ -30,19 +30,12 @@ const PartyCard = ({ artistId }) => {
         <ArtistCard artistObj={artistDetails} />
       </div>
 
-      <div>
-        <div id="artist-artwork-container">
-          <h3 style={{ padding: 20 }}>Artworks by {artistDetails.name}:</h3>
-        </div>
-        <div id="artist-artworks-container">
-          <div id="featured-artwork-container">
-            {artistArtworks.map((artwork) => (
-              <section key={`artwork--${artwork.id}`} id="artwork">
-                <ArtworkCard key={artwork.id} artworkObj={artwork} />
-              </section>
-            ))}
-          </div>
-        </div>
+      <div id="party-artwork-container">
+        {artistArtworks.map((artwork) => (
+          <section id="party-artwork" key={`artwork--${artwork.id}`}>
+            <ArtworkCard key={artwork.id} artworkObj={artwork} />
+          </section>
+        ))}
       </div>
     </div>
   );

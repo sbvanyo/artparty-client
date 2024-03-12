@@ -11,8 +11,9 @@ function ArtworkHome() {
 
   return (
     <>
+      <hr />
       <div className="page-title">
-        <h1>Artworks</h1>
+        <h1>EVERY ART EVER</h1>
       </div>
       <div id="artwork-container">
         {artworks.map((artwork) => (

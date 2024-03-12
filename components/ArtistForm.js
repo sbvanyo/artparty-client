@@ -114,7 +114,7 @@ const ArtistForm = ({ initialArtist, closeModal }) => {
             type="file"
             onChange={handleChange}
           />
-          {fileName && <div className="mt-2">Initial file: {fileName}</div>}
+          {formInput.img && <div className="mt-2">Initial file: {fileName}</div>}
         </Form.Group>
 
         <Button variant="primary" type="submit">

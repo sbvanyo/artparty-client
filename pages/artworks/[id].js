@@ -55,20 +55,13 @@ const ArtworkDetails = () => {
 
   return (
     <>
-      <h1 className="detailsTitle" style={{ textAlign: 'center', fontSize: 70, color: 'black' }}>Artwork: {artworkDetails.title}</h1>
+      <h1 className="page-title">{artworkDetails.title}</h1>
 
       <div id="single-artwork">
         <Image src={artworkDetails.img} id="single-artwork-img" />
 
-        <FormGroup>
-          <FormControlLabel
-            control={<Switch checked={featured} onChange={toggleFeatured} />}
-            label="this art wants to PARTY"
-          />
-
-        </FormGroup>
         <div id="single-artwork-details">
-          <p>by: {artworkDetails.artist.name}, age {artworkDetails.age}</p>
+          <p>By: {artworkDetails.artist.name}, age {artworkDetails.age}</p>
           <p>Medium: {artworkDetails.medium}</p>
           <p>Description: {artworkDetails.description}</p>
           <p>Created on: {artworkDetails.date}</p>
@@ -85,9 +78,18 @@ const ArtworkDetails = () => {
           </>
         </div>
 
-        <div className="btn-holder">
-          <Button onClick={handleOpenModal}>Edit Artwork</Button>
-          <Button onClick={deleteThisArtwork}>Delete Artwork</Button>
+        <FormGroup>
+          <FormControlLabel
+            control={<Switch checked={featured} onChange={toggleFeatured} />}
+            label="this art wants to PARTY"
+            id="party-toggle"
+          />
+
+        </FormGroup>
+
+        <div id="artwork-btn-holder">
+          <Button className="btn" onClick={handleOpenModal}>Edit Artwork</Button>
+          <Button className="btn" onClick={deleteThisArtwork}>Delete Artwork</Button>
         </div>
       </div>
 

@@ -1,0 +1,103 @@
+@import 'bootstrap/dist/css/bootstrap.css';
+@import url('https://fonts.googleapis.com/css2?family=Ojuju:wght@200..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet');
+
+/* ARTWORK */
+.artwork {
+  margin-top: 20px;
+  break-inside: avoid;
+
+  @media screen and (max-width: 600px) {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+#artwork-container {
+  /* display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center; */
+  padding: 5% 0;
+  column-count: 4;
+  column-gap: 0;
+
+  @media screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    column-count: 1;
+  }
+}
+#artwork-card {
+  margin: 10px;
+  height: auto;
+  width: fit-content;
+  max-width: 330px;
+  display: flex;
+  border-radius: 5%;
+}
+#artwork-img {
+  width: 100%;
+  height: auto;
+  border: white 5px solid;
+  max-width: 100%;
+}
+
+
+
+/* SINGLE ARTWORK */
+#single-artwork {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.details-title {
+  text-align: center;
+  margin-top: 5vh;
+}
+#single-artwork-img {
+  width: 60vw;
+  height: auto;
+  border: 10px solid whitesmoke;
+  border-radius: 25px;
+  margin: 5% 5% 2% 5%;
+}
+#single-artwork-details {
+  background-color: whitesmoke;
+  margin: 2% 0 1% 0;
+  padding: 2%;
+  border-radius: 25px;
+  width: 60vw;
+  height: auto;
+  font-family: Raleway, sans-serif;
+}
+#artwork-tags-container {
+  background-color: whitesmoke;
+  padding: 2%;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  width: 60vw;
+  height: auto;
+  font-family: Raleway, sans-serif;
+}
+.artwork-tags {
+  margin: 0 5px;
+}
+#tags-header {
+  margin: 0;
+}
+#party-toggle {
+  margin-top: 2rem;
+}
+#artwork-btn-holder {
+  margin: 3rem;
+}
+
+
+#party-card {
+  display: flex;
+}
+#party-artwork-container {
+  display: flex;
+  align-items: center;
+}

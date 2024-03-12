@@ -10,13 +10,17 @@ export default function PartyTime() {
   }, []);
 
   return (
-    <>
+    <div id="party-page">
       <div className="page-title">
-        <h1>PARTY TIME!</h1>
+        <h1 className="page-title">PARTY TIME!</h1>
+        <hr />
         {artists.map((artist) => (
-          <PartyCard key={artist.id} artistId={artist.id} />
+          <>
+            <PartyCard key={artist.id} artistId={artist.id} />
+            <hr />
+          </>
         ))}
       </div>
-    </>
+    </div>
   );
 }

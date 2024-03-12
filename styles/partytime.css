@@ -1,0 +1,24 @@
+@import 'bootstrap/dist/css/bootstrap.css';
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Ojuju:wght@200..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+#party-page {
+  border-right: 10px dotted white;
+  border-left: 10px dotted white;
+  padding: 5%;
+  margin: 0;
+}
+#party-card {
+  align-items: center;
+  margin: 2rem 0;
+}
+#party-artwork {
+  margin: 2%;
+  border-radius: 25px;
+  border: 4px solid rgb(241, 210, 100);
+}
+#btn-party {
+  padding: 25px;
+  background-color: tomato;
+  border: none;
+  font-weight: bold;
+}

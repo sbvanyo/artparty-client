@@ -10,8 +10,8 @@ const ArtistCard = ({ artistObj }) => (
         <Link href={`/artists/${artistObj.id}`} passHref>
           <Card.Img src={artistObj.img} id="artist-img" style={{ cursor: 'pointer' }} />
         </Link>
+        <Card.Title id="artist-name">{artistObj.name}</Card.Title>
       </Card.Body>
-      <Card.Title>{artistObj.name}</Card.Title>
     </Card>
   </>
 );

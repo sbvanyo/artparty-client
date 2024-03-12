@@ -45,7 +45,7 @@ const ArtistDetails = () => {
       <h1 className="detailsTitle" style={{ textAlign: 'center', fontSize: 70, color: 'black' }}>Artist: {artistDetails.name}</h1>
       <div id="single-artist-details">
         <ArtistCard artistObj={artistDetails} />
-        <div className="btn-holder">
+        <div id="artist-btn-holder">
           <Button onClick={handleOpenModal}>Edit Artist</Button>
           <Button onClick={deleteThisArtist}>Delete Artist</Button>
         </div>

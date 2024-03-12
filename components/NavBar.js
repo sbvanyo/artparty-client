@@ -28,23 +28,23 @@ export default function NavBar() {
   return (
     <>
       <Navbar collapseOnSelect expand="lg" variant="dark">
-        <Container>
+        <Container id="nav-item-container">
           <Link passHref href="/">
-            <Navbar.Brand>ART PARTY</Navbar.Brand>
+            <Navbar.Brand id="logo">ART PARTY</Navbar.Brand>
           </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Link passHref href="/partytime">
-                <Button id="btn-party">PARTY TIME!</Button>
-              </Link>
               <Link passHref href="#">
                 <Nav.Link onClick={() => handleOpenModal('artwork')}>add artwork</Nav.Link>
               </Link>
               <Link passHref href="#">
                 <Nav.Link onClick={() => handleOpenModal('artist')}>add artist</Nav.Link>
               </Link>
-              <Button variant="danger" onClick={signOut}>
+              <Link passHref href="/partytime">
+                <Button id="btn-party">PARTY TIME!</Button>
+              </Link>
+              <Button variant="dark" onClick={signOut}>
                 Sign Out
               </Button>
             </Nav>

@@ -1,4 +1,5 @@
 @import 'bootstrap/dist/css/bootstrap.css';
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Ojuju:wght@200..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 html,
 body {
@@ -18,22 +19,45 @@ a {
 }
 
 body {
-  background-color: #ecb5f7;
+  background-color: rgb(87, 185, 183);
 }
 
 nav {
-  background-color: rgb(58, 58, 163);
-  height: 15vh;
+  background-color: rgb(56, 122, 121);
+  height: 20vh;
+  font-family: "Raleway", sans-serif;
+}
+/* #nav-item-container {
+} */
+#responsive-navbar-nav {
+  position: absolute;
+  right: 2%;
+}
+.nav-link {
+  align-self: center;
+  color: whitesmoke;
+  font-size: 2em;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-/* img {
-  max-width: 100%;
-  border: white 5px solid;
-} */
+#logo {
+  font-family: "Madimi One", sans-serif;
+  font-size: 500%;
+  font-weight: 500;
+}
+
+.btn {
+  margin: 0 1rem;
+  font-family: "Raleway", sans-serif;
+}
 
 .page-title {
-  margin: 40px auto;
+  margin: 6vh auto 0 auto;
   text-align: center;
+  font-family: "Madimi One", sans-serif;
+  font-weight: 600;
+  font-size: 6rem;
 }
 
 #home-container {
@@ -44,126 +68,10 @@ nav {
   margin: 0 auto;
 }
 
+#home-components-container {
+  display: flex;
+  flex-direction: column;
+}
 .home-component {
-  margin: 10vh 0;
-}
-
-
-/* ARTIST */
-#artist-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-#artist-card {
-  margin: 10px;
-  width: 12rem;
-  height: 12rem;
-  /* min-height: 329px; */
-  display: flex;
-  text-align: center;
-  border: 8px solid rgb(52, 52, 168);
-  border-radius: 50%;
-}
-#artist-card-body {
-  max-height: 12rem;
-  display: flex;
-  flex-direction: column;
-  border-radius: 50%;
-  margin-bottom: 1rem;
-}
-#artist-img {
-  border-radius: 50%;
-  /* height: 100%; */
-  max-height: 100%;
-  /* width: auto; */
-}
-#single-artist-details {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.btn-holder {
-  margin-top: 10%;
-}
-#artist-artworks {
-  display: flex;
-}
-
-
-/* ARTWORK */
-.artwork {
-  margin-top: auto;
-}
-#artwork-container {
-  /* display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center; */
-  column-count: 4;
-  column-gap: 0;
-}
-#artwork-card {
-  margin: 10px;
-  height: auto;
-  width: fit-content;
-  max-width: 330px;
-  display: flex;
-  border-radius: 5%;
-}
-#artwork-img {
-  width: 100%;
-  height: auto;
-  border: white 5px solid;
-  max-width: 100%;
-}
-
-
-
-/* SINGLE ARTWORK */
-#single-artwork {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-#single-artwork-img {
-  height: 80vh;
-  width: auto;
-  border: 10px solid whitesmoke;
-  border-radius: 25px;
-  margin: 5% 5% 2% 5%;
-}
-#single-artwork-details {
-  background-color: whitesmoke;
-  margin: 5% 0 1% 0;
-  padding: 2%;
-  border-radius: 25px;
-  width: 80%;
-}
-#artwork-tags-container {
-  background-color: whitesmoke;
-  padding: 2%;
-  border-radius: 25px;
-  display: flex;
-  align-items: center;
-  width: 80%;
-}
-.artwork-tags {
-  margin: 0 5px;
-}
-#tags-header {
-  margin: 0;
-}
-
-
-#party-card {
-  display: flex;
-}
-#featured-artwork-container {
-  display: flex;
-}
-#featured-artwork {
-  height: 80%;
+  margin-top: 3vh;
 }

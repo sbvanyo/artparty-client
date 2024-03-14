@@ -1,7 +1,7 @@
 import { clientCredentials } from '../client';
 
-const getArtworks = () => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/artworks`)
+const getArtworks = (uid) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/artworks?uid=${uid}`)
     .then((response) => response.json())
     .then(resolve)
     .catch(reject);

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import ArtworkCard from '../../components/ArtworkCard';
 import { getArtworks } from '../../utils/data/artworkData';
+import { useAuth } from '../../utils/context/authContext';
 
 function ArtworkHome() {
+  const { user } = useAuth();
   const [artworks, setArtworks] = useState([]);
 
   useEffect(() => {
-    getArtworks().then((data) => setArtworks(data));
-  }, []);
+    getArtworks(user.uid).then((data) => setArtworks(data));
+  }, [user.uid]);
 
   return (
     <>

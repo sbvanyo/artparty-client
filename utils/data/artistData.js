@@ -10,7 +10,13 @@ const getArtists = (uid) => new Promise((resolve, reject) => {
 const getSingleArtist = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/artists/${id}`)
     .then((response) => response.json())
-    .then(resolve)
+    .then((data) => {
+      if (Array.isArray(data)) {
+        resolve(data);
+      } else {
+        resolve([]);
+      }
+    })
     .catch(reject);
 });
 

@@ -27,6 +27,7 @@ const ArtistDetails = () => {
   }, [id]);
 
   useEffect(() => {
+    console.warn(id);
     getArtworksByArtist(id).then(setArtistArtworks);
   }, [id]);
 

@@ -1,9 +1,15 @@
 import { clientCredentials } from '../client';
 
-const getArtists = (uid) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/artists?uid=${uid}`)
+const getArtists = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/artists?user=${userId}`)
     .then((response) => response.json())
-    .then(resolve)
+    .then((data) => {
+      if (Array.isArray(data)) {
+        resolve(data);
+      } else {
+        resolve([]);
+      }
+    })
     .catch(reject);
 });
 

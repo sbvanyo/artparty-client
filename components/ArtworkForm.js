@@ -35,7 +35,7 @@ const ArtworkForm = ({ initialArtwork, closeModal }) => {
   // fires when form loads, checks if this component has mounted (is created and inserted into DOM), and sets initial state for artists and tags with fetch calls if so
   useEffect(() => {
     let isMounted = true;
-    getArtists().then((data) => { if (isMounted) setArtists(data); });
+    getArtists(user.id).then((data) => { if (isMounted) setArtists(data); });
     getTags().then((data) => { if (isMounted) setTags(data); });
     console.warn(initialArtwork);
 
@@ -68,7 +68,7 @@ const ArtworkForm = ({ initialArtwork, closeModal }) => {
     return () => {
       isMounted = false;
     };
-  }, [initialArtwork]);
+  }, [initialArtwork, user.id]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;

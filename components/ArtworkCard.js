@@ -5,14 +5,12 @@ import Link from 'next/link';
 
 const ArtworkCard = ({ artworkObj }) => (
   <Card id="artwork-card">
-    {/* <Card.Header>Artist: {artistObj.name}</Card.Header> */}
     <Card.Body id="artwork-card-body">
       {/* <Card.Title>{artistObj.name}</Card.Title> */}
       <Link href={`/artworks/${artworkObj.id}`} passHref>
         <Card.Img src={artworkObj.img} id="artwork-img" style={{ cursor: 'pointer' }} />
       </Link>
     </Card.Body>
-    {/* <Card.Footer className="text-muted">Order Type: {orderObj.type}</Card.Footer> */}
   </Card>
 );
 

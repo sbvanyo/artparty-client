@@ -40,6 +40,10 @@ const ArtistDetails = () => {
     }
   };
 
+  if (!artistDetails) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <h1 className="detailsTitle" style={{ textAlign: 'center', fontSize: 70, color: 'black' }}>Artist: {artistDetails.name}</h1>

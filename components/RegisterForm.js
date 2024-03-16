@@ -25,9 +25,8 @@ function RegisterForm({ user, updateUser }) {
 
         <Form.Control name="email" required placeholder="Enter your email" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
 
-        <Form.Control name="img" required placeholder="Enter your user profile url" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
+        <Form.Control name="img" required placeholder="Enter your user profile picutre url" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
 
-        {/* <Form.Text className="text-muted">Let other gamers know a little bit about you...</Form.Text> */}
       </Form.Group>
       <Button variant="primary" type="submit">
         Submit

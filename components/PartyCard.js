@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getSingleArtist } from '../utils/data/artistData';
-import { getArtworksByArtist } from '../utils/data/artworkData';
+import { getFeaturedArtworksByArtist } from '../utils/data/artworkData';
 import ArtistCard from './ArtistCard';
 import ArtworkCard from './ArtworkCard';
 
@@ -12,10 +12,9 @@ const PartyCard = ({ artistId }) => {
   useEffect(() => {
     if (artistId) {
       getSingleArtist(artistId).then(setArtistDetails);
-      getArtworksByArtist(artistId).then((artworks) => {
-        const featuredArtworks = artworks.filter((artwork) => artwork.featured === true);
-        setArtistArtworks(featuredArtworks);
-        console.warn(featuredArtworks);
+      console.warn('artistId', artistId);
+      getFeaturedArtworksByArtist(artistId).then((artworks) => {
+        setArtistArtworks(artworks);
       });
     }
   }, [artistId]);

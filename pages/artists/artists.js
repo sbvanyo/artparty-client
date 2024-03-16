@@ -13,8 +13,8 @@ function ArtistHome() {
 
   return (
     <>
-      <div className="page-title">
-        <h1>Artists</h1>
+      <div>
+        <h1 className="page-title">Artists</h1>
       </div>
       <div id="artist-container">
         {artists.map((artist) => (

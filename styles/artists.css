@@ -46,7 +46,19 @@
   align-items: center;
 }
 #artist-btn-holder {
-  margin-top: 10%;
+  margin-top: 8%;
+  
+  .btn {
+    margin: 0 1rem;
+    border: none;
+  }
+  .edit-btn {
+    background-color: rgb(241, 210, 100);
+    color: black;
+  }
+  .delete-btn {
+    background-color: tomato;
+  }
 }
 #artist-artworks {
   display: flex;

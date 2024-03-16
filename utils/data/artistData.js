@@ -17,11 +17,7 @@ const getSingleArtist = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/artists/${id}`)
     .then((response) => response.json())
     .then((data) => {
-      if (Array.isArray(data)) {
-        resolve(data);
-      } else {
-        resolve([]);
-      }
+      resolve(data);
     })
     .catch(reject);
 });

@@ -14,10 +14,7 @@ const PartyCard = ({ artistId }) => {
       getSingleArtist(artistId).then(setArtistDetails);
       console.warn('artistId', artistId);
       getFeaturedArtworksByArtist(artistId).then((artworks) => {
-        console.warn('artist artworks', artworks);
-        const featuredArtworks = artworks.filter((artwork) => artwork.featured === true);
-        setArtistArtworks(featuredArtworks);
-        // console.warn(featuredArtworks);
+        setArtistArtworks(artworks);
       });
     }
   }, [artistId]);

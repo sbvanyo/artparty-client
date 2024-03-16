@@ -5,7 +5,6 @@ import ArtistHome from './artists/artists';
 import ArtworkHome from './artworks/artworks';
 
 function Home() {
-  // const { user } = useAuth();
   return (
     <>
       <div id="home-container">

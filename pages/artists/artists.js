@@ -8,7 +8,6 @@ function ArtistHome() {
   const [artists, setArtists] = useState([]);
 
   useEffect(() => {
-    console.warn(user);
     getArtists(user.id).then((data) => setArtists(data));
   }, [user.id]);
 

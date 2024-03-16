@@ -8,8 +8,8 @@ export default function PartyTime() {
   const [artists, setArtists] = useState([]);
 
   useEffect(() => {
-    getArtists(user.uid).then(setArtists);
-  }, [user.uid]);
+    getArtists(user.id).then(setArtists);
+  }, [user.id]);
 
   return (
     <div id="party-page">

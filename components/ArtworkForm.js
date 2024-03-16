@@ -37,7 +37,6 @@ const ArtworkForm = ({ initialArtwork, closeModal }) => {
     let isMounted = true;
     getArtists(user.id).then((data) => { if (isMounted) setArtists(data); });
     getTags().then((data) => { if (isMounted) setTags(data); });
-    console.warn(initialArtwork);
 
     // updating existing artwork - populates form with existing details, along with setting the dropdown input to the associated artist
     if (initialArtwork && initialArtwork.artist) {
@@ -132,8 +131,6 @@ const ArtworkForm = ({ initialArtwork, closeModal }) => {
         return;
       }
     }
-
-    // const userId = initialArtwork?.user?.id || null;
 
     // Artwork data structure for creation/update.
     const artworkData = {

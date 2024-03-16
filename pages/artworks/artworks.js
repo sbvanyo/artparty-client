@@ -8,7 +8,6 @@ function ArtworkHome() {
   const [artworks, setArtworks] = useState([]);
 
   useEffect(() => {
-    console.warn(user);
     getArtworks(user.id).then((data) => setArtworks(data));
   }, [user.id]);
 

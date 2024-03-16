@@ -27,7 +27,6 @@ const ArtistDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    console.warn(id);
     getArtworksByArtist(id).then(setArtistArtworks);
   }, [id]);
 
@@ -40,6 +39,10 @@ const ArtistDetails = () => {
       deleteArtist(id).then(() => router.push('/'));
     }
   };
+
+  if (!artistDetails) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>

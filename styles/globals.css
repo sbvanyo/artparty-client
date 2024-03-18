@@ -1,6 +1,23 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 @import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Ojuju:wght@200..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+  --bgwhite: #E6E6E6;
+  --blackish: rgb(60, 60, 60);
+  --peony: #F6C3AE;
+  --peony-hover: #fbdbce;
+  --brick: #F0743E;
+  --brick-hover: rgb(244, 142, 99);
+  --lavender: #CDBCDB;
+  --lavender-hover: #d9d7da;
+  --sunshine: #FDD848;
+  --sunshine-hover: #ffe991;
+  --katydid: #AAD59E;
+  --katydid-hover: #cfddcb;
+  --puddle: #9AB2D4;
+  --puddle-hover: #bec7d5;
+}
+
 html,
 body {
   padding: 0;
@@ -19,22 +36,14 @@ a {
 }
 
 body {
-  background-color: rgb(87, 185, 183);
+  background-color: var(--bgwhite);
 }
 
 .btn {
   font-family: "Raleway", sans-serif;
 
   &:hover {
-    color: #fff;
-    &:before {
-      transform: scaleY(1);
-      opacity: 1;
-    }
-    &:after {
-      transform: scaleY(1);
-      opacity: 1;
-    }
+    color: #fff !important;
   }
 }
 
@@ -43,7 +52,7 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: 20vh;
+  margin: 20vh 0;
 }
 
 #login-msg {
@@ -53,27 +62,35 @@ body {
   h1 {
     font-size: 12rem;
     font-weight: 500;
+    color: var(--blackish);
   }
-  h3 {
-    color: white;
+  h4 {
+    color: var(--blackish);
   }
   p {
-    max-width: 50%;
-    margin-right: auto;
-    margin-left: auto;
+    max-width: 80%;
+    margin: 3% auto;
+    font-family: Raleway;
+    background-color: white;
+    padding: 3%;
+    border-radius: 50px;
   }
 }
 
 #signin-btn {
   width: 30%;
-  background-color: rgb(56, 122, 121);
+  background-color: var(--brick);
   border: none;
   padding: 2%;
+
+  &:hover {
+    background-color: var(--brick-hover);
+  }
 }
 
 nav {
-  background-color: rgb(56, 122, 121);
-  height: 20vh;
+  background-color: var(--brick);
+  height: 25vh;
   font-family: "Raleway", sans-serif;
 }
 /* #nav-item-container {
@@ -85,13 +102,16 @@ nav {
 .nav-link {
   align-self: center;
   color: whitesmoke;
-  font-size: 2rem;
-  margin-left: 20px;
-  margin-right: 20px;
+  font-size: 100%;
+  margin: 0 3%;
+  min-width: 60%;
+  border: 2px white solid;
+  border-radius: 25px;
+  text-align: center;
 }
 #nav-links {
   display: flex;
-  margin: 10px;
+  margin: 25px;
 }
 #nav-btns {
   display: flex;
@@ -109,7 +129,8 @@ nav {
   text-align: center;
   font-family: "Madimi One", sans-serif;
   font-weight: 600;
-  font-size: 8rem;
+  font-size: 7rem;
+  color: var(--blackish)
 }
 .page-subtitle {
   margin: 6vh auto 0 auto;
@@ -117,6 +138,7 @@ nav {
   font-family: "Madimi One", sans-serif;
   font-weight: 600;
   font-size: 3rem;
+  color: var(--blackish)
 }
 
 #home-container {

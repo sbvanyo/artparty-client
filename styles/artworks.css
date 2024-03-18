@@ -1,6 +1,16 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 @import url('https://fonts.googleapis.com/css2?family=Ojuju:wght@200..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet');
 
+:root {
+  --bgwhite: rgb(234, 224, 215);
+  --peony: #F6C3AE;
+  --brick: #F0743E;
+  --lavender: #CDBCDB;
+  --sunshine: #FDD848;
+  --katydid: #AAD59E;
+  --puddle: #9AB2D4;
+}
+
 /* ARTWORK */
 .artwork {
   margin-top: 20px;

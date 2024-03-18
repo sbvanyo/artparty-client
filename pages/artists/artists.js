@@ -14,7 +14,7 @@ function ArtistHome() {
   return (
     <>
       <div>
-        <h1 className="page-title">Artists</h1>
+        <h1 className="page-title">artists</h1>
       </div>
       <div id="artist-container">
         {artists.map((artist) => (

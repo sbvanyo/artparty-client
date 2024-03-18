@@ -48,7 +48,7 @@ export default function NavBar() {
                   <Button id="btn-party">PARTY TIME!</Button>
                 </Link>
                 <Button variant="dark" onClick={signOut}>
-                  Sign Out
+                  BYE
                 </Button>
               </div>
             </Nav>

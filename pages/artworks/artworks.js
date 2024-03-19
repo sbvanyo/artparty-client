@@ -17,7 +17,7 @@ function ArtworkHome() {
       <div>
         <h1 className="page-subtitle">EVERY ART EVER</h1>
       </div>
-      <div id="artwork-container">
+      <div className="artwork-container">
         {artworks.map((artwork) => (
           <section key={`artwork--${artwork.id}`} className="artwork">
             <ArtworkCard key={artwork.id} artworkObj={artwork} />

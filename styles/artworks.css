@@ -1,15 +1,6 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 @import url('https://fonts.googleapis.com/css2?family=Ojuju:wght@200..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet');
 
-:root {
-  --bgwhite: rgb(234, 224, 215);
-  --peony: #F6C3AE;
-  --brick: #F0743E;
-  --lavender: #CDBCDB;
-  --sunshine: #FDD848;
-  --katydid: #AAD59E;
-  --puddle: #9AB2D4;
-}
 
 /* ARTWORK */
 .artwork {
@@ -21,12 +12,7 @@
     margin-left: auto;
   }
 }
-#artwork-container {
-  /* display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center; */
+.artwork-container {
   padding: 5% 0;
   column-count: 4;
   column-gap: 0;
@@ -67,12 +53,12 @@
 #single-artwork-img {
   width: 60vw;
   height: auto;
-  border: 10px solid whitesmoke;
+  border: 10px solid white;
   border-radius: 25px;
   margin: 5% 5% 2% 5%;
 }
 #single-artwork-details {
-  background-color: whitesmoke;
+  background-color: var(--lavender);
   margin: 2% 0 1% 0;
   padding: 2%;
   border-radius: 25px;
@@ -81,7 +67,7 @@
   font-family: Raleway, sans-serif;
 }
 #artwork-tags-container {
-  background-color: whitesmoke;
+  background-color: var(--lavender);
   padding: 2%;
   border-radius: 25px;
   display: flex;
@@ -101,13 +87,24 @@
 }
 #artwork-btn-holder {
   margin: 3rem;
-}
+  
+  .btn {
+    margin: 0 1rem;
+    border: none;
+  }
+  .edit-btn {
+    background-color: var(--puddle);
+    color: black;
 
+    &:hover {
+      background-color: var(--puddle-hover);
+    }
+  }
+  .delete-btn {
+    background-color: var(--brick);
 
-#party-card {
-  display: flex;
-}
-#party-artwork-container {
-  display: flex;
-  align-items: center;
+    &:hover {
+      background-color: var(--brick-hover);
+    }
+  }
 }

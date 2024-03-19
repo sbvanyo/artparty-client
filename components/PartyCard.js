@@ -29,7 +29,7 @@ const PartyCard = ({ artistId }) => {
         <ArtistCard artistObj={artistDetails} />
       </div>
 
-      <div id="party-artwork-container">
+      <div className="artwork-container">
         {artistArtworks.map((artwork) => (
           <section id="party-artwork" key={`artwork--${artwork.id}`}>
             <ArtworkCard key={artwork.id} artworkObj={artwork} />

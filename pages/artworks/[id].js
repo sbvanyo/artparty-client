@@ -88,8 +88,8 @@ const ArtworkDetails = () => {
         </FormGroup>
 
         <div id="artwork-btn-holder">
-          <Button className="btn" onClick={handleOpenModal}>Edit Artwork</Button>
-          <Button className="btn" onClick={deleteThisArtwork}>Delete Artwork</Button>
+          <Button className="edit-btn" onClick={handleOpenModal}>Edit Artwork</Button>
+          <Button className="delete-btn" onClick={deleteThisArtwork}>Delete Artwork</Button>
         </div>
       </div>
 

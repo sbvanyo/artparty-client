@@ -61,7 +61,7 @@ const ArtistDetails = () => {
         <div id="artist-artwork-container">
           <h3 className="page-subtitle">Artworks by {artistDetails.name}:</h3>
         </div>
-        <div id="artist-artworks">
+        <div className="artwork-container">
           {artistArtworks.map((artwork) => (
             <section key={`artwork--${artwork.id}`} className="artwork">
               <ArtworkCard key={artwork.id} artworkObj={artwork} />

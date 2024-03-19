@@ -30,7 +30,7 @@ export default function NavBar() {
       <Navbar collapseOnSelect expand="lg" variant="dark">
         <Container id="nav-item-container">
           <Link passHref href="/">
-            <Navbar.Brand id="logo">ART PARTY</Navbar.Brand>
+            <Navbar.Brand id="app-title">ART PARTY</Navbar.Brand>
           </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -47,7 +47,7 @@ export default function NavBar() {
                 <Link passHref href="/partytime">
                   <Button id="btn-party">PARTY TIME!</Button>
                 </Link>
-                <Button variant="dark" onClick={signOut}>
+                <Button id="btn-signout" variant="dark" onClick={signOut}>
                   BYE
                 </Button>
               </div>

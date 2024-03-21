@@ -5,12 +5,11 @@ import ArtistHome from './artists/artists';
 import ArtworkHome from './artworks/artworks';
 
 function Home() {
+  // const { user } = useAuth();
   return (
     <>
       <div id="home-container">
-        {/* <div id="greeting">
-          <h3>Hello {user.fbUser.displayName}!</h3>
-        </div> */}
+        {/* <h3 id="greeting">Hello {user.name}!</h3> */}
         <div id="home-components-container">
           <div className="home-component">
             <ArtistHome />

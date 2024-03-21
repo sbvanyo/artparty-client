@@ -30,23 +30,27 @@ export default function NavBar() {
       <Navbar collapseOnSelect expand="lg" variant="dark">
         <Container id="nav-item-container">
           <Link passHref href="/">
-            <Navbar.Brand id="logo">ART PARTY</Navbar.Brand>
+            <Navbar.Brand id="app-title">ART PARTY</Navbar.Brand>
           </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Link passHref href="#">
-                <Nav.Link onClick={() => handleOpenModal('artwork')}>add artwork</Nav.Link>
-              </Link>
-              <Link passHref href="#">
-                <Nav.Link onClick={() => handleOpenModal('artist')}>add artist</Nav.Link>
-              </Link>
-              <Link passHref href="/partytime">
-                <Button id="btn-party">PARTY TIME!</Button>
-              </Link>
-              <Button variant="dark" onClick={signOut}>
-                Sign Out
-              </Button>
+              <div id="nav-links">
+                <Link passHref href="#">
+                  <Nav.Link onClick={() => handleOpenModal('artwork')}>add artwork</Nav.Link>
+                </Link>
+                <Link passHref href="#">
+                  <Nav.Link onClick={() => handleOpenModal('artist')}>add artist</Nav.Link>
+                </Link>
+              </div>
+              <div id="nav-btns">
+                <Link passHref href="/partytime">
+                  <Button id="btn-party">PARTY TIME!</Button>
+                </Link>
+                <Button id="btn-signout" variant="dark" onClick={signOut}>
+                  SEE YA
+                </Button>
+              </div>
             </Nav>
           </Navbar.Collapse>
         </Container>

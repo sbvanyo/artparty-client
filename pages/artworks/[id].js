@@ -40,7 +40,7 @@ const ArtworkDetails = () => {
     const featuredSelection = !featured;
     setFeatured(featuredSelection);
     updateArtwork(id, { featured: featuredSelection });
-    console.warn(featured);
+    console.warn(artworkDetails);
   };
 
   if (!artworkDetails) {
@@ -81,7 +81,7 @@ const ArtworkDetails = () => {
         <FormGroup>
           <FormControlLabel
             control={<Switch checked={featured} onChange={toggleFeatured} />}
-            label="this art wants to PARTY"
+            label="add to party page"
             id="party-toggle"
           />
 

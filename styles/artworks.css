@@ -51,11 +51,13 @@
   margin-top: 5vh;
 }
 #single-artwork-img {
-  width: 60vw;
-  height: auto;
+  width: auto;
+  max-height: 80vh;
+  object-fit: contain;
   border: 10px solid white;
   border-radius: 25px;
   margin: 5% 5% 2% 5%;
+  padding: 10px;
 }
 #single-artwork-details {
   background-color: var(--lavender);

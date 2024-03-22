@@ -1,5 +1,6 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 @import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Ojuju:wght@200..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
 
 :root {
   --bgwhite: #E6E6E6;
@@ -56,14 +57,19 @@ body {
 }
 
 #logo {
-  width: 25%;
+  width: 15rem;
   margin-bottom: 0;
+  cursor: pointer;
+  margin: 10px;
   /* max-width: 90%;
   max-height: 90%; */
 }
+#logo-lg {
+  width: 30rem;
+}
 
 #login-msg {
-  font-family: "Madimi One", sans-serif;
+  font-family: "Shrikhand", sans-serif;
   margin: 0 0 3vh 0;
 
   h1 {
@@ -73,6 +79,7 @@ body {
   }
   h4 {
     color: var(--blackish);
+    font-family: "Ojuju", sans-serif;
   }
   p {
     max-width: 80%;
@@ -160,7 +167,7 @@ nav {
 }
 
 #app-title {
-  font-family: "Madimi One", sans-serif;
+  font-family: "Shrikhand", sans-serif;
   font-size: 500%;
   font-weight: 500;
 }
@@ -168,9 +175,9 @@ nav {
 .page-title {
   margin: 6vh auto 0 auto;
   text-align: center;
-  font-family: "Madimi One", sans-serif;
+  font-family: "Ojuju", sans-serif;
   font-weight: 600;
-  font-size: 7rem;
+  font-size: 5rem;
   color: var(--blackish) !important;
 }
 .page-subtitle {

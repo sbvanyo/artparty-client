@@ -1,9 +1,9 @@
 @import 'bootstrap/dist/css/bootstrap.css';
-@import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Ojuju:wght@200..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Shrikhand&family=Ojuju:wght@200..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 #party-page {
-  border-right: 10px dotted white;
-  border-left: 10px dotted white;
+  /* border-right: 10px dotted white;
+  border-left: 10px dotted white; */
   padding: 5%;
   margin: 0;
 }
@@ -20,6 +20,6 @@
 #party-artwork {
   margin: 8px;
   border-radius: 25px;
-  border: 4px solid var(--lavender);
+  /* border: 4px solid var(--lavender); */
   break-inside: avoid;
 }

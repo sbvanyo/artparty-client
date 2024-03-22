@@ -40,7 +40,6 @@ const ArtworkDetails = () => {
     const featuredSelection = !featured;
     setFeatured(featuredSelection);
     updateArtwork(id, { featured: featuredSelection });
-    console.warn(artworkDetails);
   };
 
   if (!artworkDetails) {
@@ -61,10 +60,10 @@ const ArtworkDetails = () => {
         <Image src={artworkDetails.img} id="single-artwork-img" />
 
         <div id="single-artwork-details">
-          <p>By: {artworkDetails.artist.name}, age {artworkDetails.age}</p>
-          <p>Medium: {artworkDetails.medium}</p>
-          <p>Description: {artworkDetails.description}</p>
-          <p>Created on: {artworkDetails.date}</p>
+          <p><strong>by:</strong> {artworkDetails.artist.name}, age {artworkDetails.age}</p>
+          <p><strong>medium:</strong> {artworkDetails.medium}</p>
+          <p><strong>description:</strong> {artworkDetails.description}</p>
+          <p><strong>created on:</strong> {artworkDetails.date}</p>
         </div>
 
         <div id="artwork-tags-container">
@@ -88,8 +87,8 @@ const ArtworkDetails = () => {
         </FormGroup>
 
         <div id="artwork-btn-holder">
-          <Button className="edit-btn" onClick={handleOpenModal}>Edit Artwork</Button>
-          <Button className="delete-btn" onClick={deleteThisArtwork}>Delete Artwork</Button>
+          <Button className="edit-btn" onClick={handleOpenModal}>edit artwork</Button>
+          <Button className="delete-btn" onClick={deleteThisArtwork}>delete artwork</Button>
         </div>
       </div>
 

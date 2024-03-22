@@ -7,6 +7,7 @@ import {
   Nav,
   Button,
   Modal,
+  Image,
 } from 'react-bootstrap';
 import ArtistForm from './ArtistForm';
 import ArtworkForm from './ArtworkForm';
@@ -28,6 +29,9 @@ export default function NavBar() {
   return (
     <>
       <Navbar collapseOnSelect expand="lg" variant="dark">
+        <Link passHref href="/">
+          <Image src="https://firebasestorage.googleapis.com/v0/b/artparty-fb1dd.appspot.com/o/images%2Fartparty.JPG?alt=media&token=199110b1-38b0-4ba5-8152-cfed19f15867" id="logo" />
+        </Link>
         <Container id="nav-item-container">
           <Link passHref href="/">
             <Navbar.Brand id="app-title">ART PARTY</Navbar.Brand>

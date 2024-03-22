@@ -107,7 +107,6 @@ const ArtworkForm = ({ initialArtwork, closeModal }) => {
 
     try {
       await Promise.all([...addPromises, ...removePromises]);
-      console.warn('Tags updated successfully');
     } catch (error) {
       console.error('Error updating tags:', error);
     }
@@ -297,8 +296,8 @@ ArtworkForm.propTypes = {
       }),
     ),
     user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-    }).isRequired,
+      id: PropTypes.number,
+    }),
     artist: PropTypes.shape({
       id: PropTypes.number,
     }),

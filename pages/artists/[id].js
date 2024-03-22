@@ -46,12 +46,12 @@ const ArtistDetails = () => {
 
   return (
     <>
-      <h1 className="page-title" style={{ textAlign: 'center', fontSize: 70, color: 'black' }}>Artist: {artistDetails.name}</h1>
+      <h1 className="page-title" style={{ textAlign: 'center', fontSize: 70, color: 'black' }}>artist: {artistDetails.name}</h1>
       <div id="single-artist-details">
         <ArtistCard artistObj={artistDetails} />
         <div id="artist-btn-holder">
-          <Button className="edit-btn" onClick={handleOpenModal}>Edit Artist</Button>
-          <Button className="delete-btn" onClick={deleteThisArtist}>Delete Artist</Button>
+          <Button className="edit-btn" onClick={handleOpenModal}>edit artist</Button>
+          <Button className="delete-btn" onClick={deleteThisArtist}>delete artist</Button>
         </div>
       </div>
 
@@ -59,7 +59,7 @@ const ArtistDetails = () => {
 
       <div>
         <div id="artist-artwork-container">
-          <h3 className="page-subtitle">Artworks by {artistDetails.name}:</h3>
+          <h3 className="page-subtitle">artworks by {artistDetails.name}:</h3>
         </div>
         <div className="artwork-container">
           {artistArtworks.map((artwork) => (

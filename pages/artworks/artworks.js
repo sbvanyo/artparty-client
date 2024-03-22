@@ -14,9 +14,9 @@ function ArtworkHome() {
   return (
     <>
       <hr />
-      <div>
+      {/* <div>
         <h1 className="page-subtitle">EVERY ART EVER</h1>
-      </div>
+      </div> */}
       <div className="artwork-container">
         {artworks.map((artwork) => (
           <section key={`artwork--${artwork.id}`} className="artwork">

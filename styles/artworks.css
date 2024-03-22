@@ -83,6 +83,7 @@
 }
 #tags-header {
   margin: 0;
+  font-weight: bold;
 }
 #party-toggle {
   margin-top: 2rem;
